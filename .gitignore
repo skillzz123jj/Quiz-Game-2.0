@@ -1,0 +1,31 @@
+# Ignore all .idea files and folders
+.idea/
+
+# Except the ones you might want to keep
+!.idea/codeStyles/
+!.idea/runConfigurations/
+!.idea/inspectionProfiles/
+
+# If you really need to keep .iml files (e.g. for shared module config)
+# Uncomment the line below:
+# !*.iml
+
+# Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# Virtual environment
+venv/
+.env/
+.venv/
+
+# PyCharm-specific
+*.idea/workspace.xml
+*.idea/tasks.xml
+*.idea/dictionaries/
