@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .hidden {
+          display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="loading">
+      <p>loading...</p>
+    </div>
+    <div id="game" class="hidden">
+      <p>game</p>
+    </div>
+    <!-- TODO: move to a separate .js file -->
+    <script>
+        setTimeout(() => {
+            const loading = document.getElementById("loading");
+            const game = document.getElementById("game");
+            loading.classList.add("hidden");
+            game.classList.remove("hidden");
+        }, 2000);
+    </script>
+</body>
+</html>
