@@ -2,15 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     <title>Title</title>
-    <script src="scripts.js" defer></script>
+    <script src="javascript/scripts.js" defer></script>
 </head>
 <body>
 
 <main>
     <header>
-        <img id="logo" src="testi2.png" alt="logo">
+        <img id="logo" src="img/transparent-logo.png" alt="logo">
+        <h1>Quiz game</h1>
+        <h2>Test your knowledge!</h2>
     </header>
 
     <nav>
@@ -18,10 +20,15 @@
             <li><a href="log-in.html">Log in</a></li>
             <li><a href="Create profile.html">Create profile</a></li>
             <li><a href="Leaderboards.html">Leaderboards</a></li>
-            <li><a href="Instructions.html">Instructions</a></li>
+            <li><a id="show-instructions" href="#">Show instructions</a></li>
         </ul>
     </nav>
 </main>
+
+<dialog id="instructions-dialog">
+    <p>Instructions</p>
+    <a id="hide-instructions" href="#">Close</a>
+</dialog>
 
 <footer>
     <button onclick="dark_mode()">Toggle dark/light mode</button>
