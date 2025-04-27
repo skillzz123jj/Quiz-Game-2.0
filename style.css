@@ -41,6 +41,16 @@ canvas {
   border: 2px solid var(--border);
 }
 
+.country-dot.highlighted {
+
+  width: 10px;
+  height: 10px;
+  background-color: var(--dot);
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  box-shadow: 0 0 20px #ff4da6, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6;
+
+}
 
 
 
