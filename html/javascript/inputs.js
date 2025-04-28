@@ -3,6 +3,7 @@ export let dy = 0;
 
 export{handleKeyDown, handleKeyUp};
 
+//Handles user inputs for sprite changes
 function handleKeyDown(event){
 if(event.key === "ArrowUp")
 {

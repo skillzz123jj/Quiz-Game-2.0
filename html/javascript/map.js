@@ -1,5 +1,6 @@
 'use strict';
 
+//Gets the map from OpenFreeMap
 export const map = new maplibregl.Map({
   container: 'map',
   style: 'https://tiles.openfreemap.org/styles/liberty',
@@ -7,6 +8,7 @@ export const map = new maplibregl.Map({
   zoom: 2.5,
 });
 
+//Disables some built-in features in the map
 map.dragPan.disable();
 map.dragRotate.disable();
 map.scrollZoom.disable();
@@ -16,6 +18,7 @@ map.on('load', () => {
   loadCountryGeoJSON(map);
 });
 
+//Finds the location of each country and and adds a dot over it on the map
 export async function loadCountryGeoJSON(map) {
   const res = await fetch('https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json');
   const geojson = await res.json();

@@ -9,6 +9,7 @@ window.addEventListener("keyup", handleKeyUp);
 const canvas = document.getElementById("gamecanvas");
 const ctx = canvas.getContext("2d");
 
+//Initializes the plane canvases
 const playerHorizontal = new Image();
 const playerVerticalUp = new Image();
 const playerVerticalDown = new Image();
@@ -17,8 +18,8 @@ playerHorizontal.src = "../Images/pixil-frame-h.png";
 playerVerticalUp.src = "../Images/pixil-frame-v-down.png";
 playerVerticalDown.src = "../Images/pixil-frame-v-up.png";
 
-const spriteWidth = 90;
-const spriteHeight = 90;
+const spriteWidth = 54;
+const spriteHeight = 54;
 
 let playerX = canvas.width / 2 - spriteWidth / 2;
 let playerY = canvas.height / 2 - spriteHeight / 2;
@@ -71,7 +72,7 @@ function getCanvasRelativePosition(dotElement, canvas) {
   };
 }
 
-
+//Checks if player is colliding with any of the dots
 function isPlayerCollidingWithDot(dotElement, canvas, playerX, playerY, spriteWidth, spriteHeight) {
   const dotPos = getCanvasRelativePosition(dotElement, canvas);
   const playerCenterX = playerX + spriteWidth / 2;
@@ -87,7 +88,7 @@ function isPlayerCollidingWithDot(dotElement, canvas, playerX, playerY, spriteWi
 }
   let foundCollidingDot = null;
 
-
+//Updates the game every frame so that sprites are updated and collisions checked
 function updateGame()
 {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -113,7 +114,7 @@ function updateGame()
 
   requestAnimationFrame(updateGame);
 }
-
+//Checks if player has chosen a country
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Enter' && foundCollidingDot) {
     console.log(`You selected ${foundCollidingDot.title}`);
