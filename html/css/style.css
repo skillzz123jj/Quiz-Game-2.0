@@ -14,10 +14,24 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+     font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: "Behavior";
+    src: url("../fonts/Behavior.otf") format("opentype");
 }
 
 h1 {
     color: var(--light-font);
+    font-family: "Behavior";
+}
+
+h2 {
+    font-family: "Behavior";
 }
 
 body {
