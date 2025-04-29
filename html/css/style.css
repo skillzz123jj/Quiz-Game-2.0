@@ -1,5 +1,5 @@
 :root {
-    --main-purple: #7650dc;
+    --main-purple: #7a58da;
     --light-purple: #dacffd;
     --main-orange: #ffcb6c;
     --light-orange: #f9efe1;
@@ -16,9 +16,19 @@
     box-sizing: border-box;
 }
 
+h1 {
+    color: var(--light-font);
+}
+
 body {
     background-color: var(--darkmode-light);
+    margin: 1rem;
+}
 
+main {
+    background-color: var(--main-purple);
+     border-radius: 15px;
+    padding-bottom: 1rem;
 }
 
 #main-menu-content {
@@ -30,8 +40,7 @@ header {
     justify-content: space-between;
     align-items: center;
     flex-direction: column;
-    background-color: var(--main-purple);
-    border-radius: 15px;
+    padding: 1rem;
 }
 
 #logo {
@@ -39,6 +48,17 @@ header {
     max-width: 100%;
     display: block;
     width: 35%;
+}
+
+#trophy {
+    margin: auto;
+    max-width: 100%;
+    display: block;
+    width: 35%;
+}
+
+.orange-text {
+    color: var(--main-orange);
 }
 
 #linkit {
@@ -67,18 +87,47 @@ a {
     color: var(--dark-font);
 }
 
+a:hover {
+    box-shadow: 0 0 15px var(--light-orange);
+}
+
 a:link {
     text-decoration: none;
 }
 
 #instructions-dialog {
     border: 0;
-    background: red;
-    border-radius: 30px;
+    background: var(--light-orange);
+    border-radius: 20px;
+    padding: 1rem;
 }
 
 #instructions-dialog::backdrop {
     background: rgba(220, 220, 245, 0.5);
+}
+
+#create-profile-content {
+    display: flex;
+    flex-direction: column;
+     row-gap: 0.5rem;
+     border-radius: 15px;
+    padding: 1rem;
+    text-align: center;
+    align-items: center;
+    margin-left: 6rem;
+    margin-right: 6rem;
+}
+
+#leaderboards {
+     display: flex;
+    flex-direction: column;
+     row-gap: 0.5rem;
+     border-radius: 15px;
+    padding: 1rem;
+    text-align: center;
+    align-items: center;
+    margin-left: 6rem;
+    margin-right: 6rem;
 }
 
 .dark-mode {
