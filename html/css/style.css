@@ -25,6 +25,10 @@
     src: url("../fonts/Behavior.otf") format("opentype");
 }
 
+#low-opacity {
+    opacity: 10%;
+}
+
 h1 {
     color: var(--light-font);
     font-family: "Behavior";
