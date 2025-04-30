@@ -46,7 +46,7 @@ def get_country_info(country_name, question_type):
         country_info = results[0]
         label = country_info['countryLabel']['value']
         value = country_info.get('value', {}).get('value', 'Unknown')
-        return {'country': label, 'result': value}
+        return {'country': label, 'result': value, 'correct': True}
     else:
         return {'error': 'Country not found'}
 

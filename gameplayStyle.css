@@ -1,7 +1,9 @@
 :root {
             --background-color: #2f2f3d;
             --border: white;
-            --dot: Red;
+            --dot: red;
+            --questionBox: white
+
         }
 
 #gamecanvas {
@@ -76,6 +78,8 @@ canvas {
   left: 10px;
   display: flex;
   gap: 10px;
+  background-color: var(--questionBox);
+  padding: 10px 20px;
   z-index: 2;
 }
 
@@ -88,6 +92,32 @@ canvas {
   width: 50px;
   height: 50px;
 }
+
+#center-box {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--questionBox);
+  padding: 200px 150px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+#quit-btn {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
 
 
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Quiz-game-2.0</title>
-  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../gameplayStyle.css">
   <script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
   <link href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" rel="stylesheet" />
   <script type="module" src="javascript/map.js"></script>
@@ -20,14 +20,25 @@
       <img src="img/life.png" class="icons" alt="Image of a heart"/>
     </div>
     <div id="image-container-left">
-      <img src="img/question-mark.png" class="icons" alt="Image for the instructions"/>
+      <img id="show-instructions" href="#" src="img/question-mark.png" class="icons" alt="Image for the instructions"/>
     </div>
     <div id="score-container">
-      <p>0</p>
+      <p>2000</p>
     </div>
      <!-- This is for drawing the player -->
-    <canvas width="800" height="450" id="gamecanvas"></canvas>
-  </div>
+        <canvas width="800" height="450" id="gamecanvas"></canvas>
+    <div id="center-box">
+  <p id="country-data"></p>
+</div>
+</div>
+
+  <dialog id="instructions-dialog">
+    <h2>How to play Quiz game</h2>
+    <p>Instructions</p>
+    <a id="hide-instructions" href="#">Close</a>
+</dialog>
+  <button id="quit-btn">Save and Quit</button>
+
 </body>
 </html>
 
