@@ -54,7 +54,7 @@ canvas {
 
 }
 
-#image-container-right {
+#healthbar-container {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -63,7 +63,7 @@ canvas {
   z-index: 2;
 }
 
-#image-container-left {
+#instructions-container {
   position: absolute;
   top: 10px;
   left: 10px;
