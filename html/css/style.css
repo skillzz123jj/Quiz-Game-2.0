@@ -14,7 +14,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-     font-family: "Roboto", sans-serif;
+    font-family: "Roboto", sans-serif;
     font-weight: 500;
     font-style: normal;
 
@@ -45,7 +45,7 @@ body {
 
 main {
     background-color: var(--main-purple);
-     border-radius: 15px;
+    border-radius: 15px;
     padding-bottom: 1rem;
 }
 
@@ -127,8 +127,8 @@ a:link {
 #create-profile-content {
     display: flex;
     flex-direction: column;
-     row-gap: 0.5rem;
-     border-radius: 15px;
+    row-gap: 0.5rem;
+    border-radius: 15px;
     padding: 1rem;
     text-align: center;
     align-items: center;
@@ -137,10 +137,10 @@ a:link {
 }
 
 #leaderboards {
-     display: flex;
+    display: flex;
     flex-direction: column;
-     row-gap: 0.5rem;
-     border-radius: 15px;
+    row-gap: 0.5rem;
+    border-radius: 15px;
     padding: 1rem;
     text-align: center;
     align-items: center;

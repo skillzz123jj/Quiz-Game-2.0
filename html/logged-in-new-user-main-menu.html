@@ -4,27 +4,39 @@
     <meta charset="UTF-8">
     <title>logged-in-new-user-main-menu</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="javascript/scripts.js" defer></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet">
 </head>
 <body>
-<header>
+
+<main id="main-menu-content">
+    <header>
         <img id="logo" src="img/transparent-logo.png" alt="logo">
         <h1>Quiz game</h1>
         <h2 class="orange-text">Test your knowledge!</h2>
     </header>
 
-<nav>
+    <nav>
         <ul id="linkit">
             <li><a href="New game.html">New game</a></li>
             <li id="low-opacity"><a href="#">Load game</a></li>
             <li><a href="leaderboards.html">Leaderboards</a></li>
             <li><a id="show-instructions" href="#">Show instructions</a></li>
-            <li><a href="Log out.html">Log out</a></li>
+            <li><a href="start-menu.html">Log out</a></li>
         </ul>
     </nav>
+
+    <dialog id="instructions-dialog">
+        <h2>How to play Quiz game</h2>
+        <p>Instructions</p>
+        <a id="hide-instructions" href="#">Close</a>
+    </dialog>
+
+</main>
 
 </body>
 </html>
