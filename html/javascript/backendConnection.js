@@ -38,5 +38,40 @@ export async function fetchCountryData(country) {
 }
 
 
+document.addEventListener("DOMContentLoaded", () => {
+  const button = document.getElementById("create-user-btn");
 
+  console.log("Button found?", button);
+  if (button) {
+    button.addEventListener("click", createUser);
+  } else {
+    console.error("Button not found in DOM");
+  }
+});
+
+
+
+export async function createUser() {
+  const input = document.getElementById("username-input");
+  const username = input.value.trim();
+
+  if (!username) {
+    alert("Please enter a username.");
+    return;
+  }
+
+  try {
+    const response = await fetch(`http://localhost:5000/createUser?name=${encodeURIComponent(username)}`);
+
+    if (!response.ok) {
+      console.error("Failed to fetch data from the backend.");
+      return;
+    }
+
+    console.log("Username:", username);
+
+  } catch (error) {
+    console.error("Error communicating with the backend:", error);
+  }
+}
 
