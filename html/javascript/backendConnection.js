@@ -40,16 +40,8 @@ export async function fetchCountryData(country) {
 
 document.addEventListener("DOMContentLoaded", () => {
   const button = document.getElementById("create-user-btn");
-
-  console.log("Button found?", button);
-  if (button) {
     button.addEventListener("click", createUser);
-  } else {
-    console.error("Button not found in DOM");
-  }
 });
-
-
 
 export async function createUser() {
   const input = document.getElementById("username-input");
@@ -67,11 +59,12 @@ export async function createUser() {
       console.error("Failed to fetch data from the backend.");
       return;
     }
-
-    console.log("Username:", username);
+    sessionStorage.setItem("username", username);
+      window.location.href = "logged-in-new-user-main-menu.html";
 
   } catch (error) {
     console.error("Error communicating with the backend:", error);
   }
 }
+
 
