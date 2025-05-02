@@ -1,10 +1,4 @@
-from flask import Flask, request, jsonify
-from flask_cors import CORS
 import requests
-
-app = Flask(__name__)
-cors = CORS(app)
-app.config['CORS_HEADERS'] = 'Content-Type'
 
 #Creates the question for Wikidata-database
 def build_query(country_name, info_type):
@@ -50,16 +44,6 @@ def get_country_info(country_name, question_type):
     else:
         return {'error': 'Country not found'}
 
-#Javascript is able to interact with this function
-@app.route('/api/country')
-def country_info():
-    country_name = request.args.get('name')
-    if not country_name:
-        return jsonify({'error': 'Missing parameters'}), 400
-    result = get_country_info(country_name, 'population')
-    return jsonify(result)
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
 

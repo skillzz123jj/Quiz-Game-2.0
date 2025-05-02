@@ -16,6 +16,4 @@ export function handleAnswer(selectedAnswer, button) {
 
 }
 
-document.getElementById('quit-btn').addEventListener('click', () => {
-  window.location.href = 'start-menu.html';
-});
+
