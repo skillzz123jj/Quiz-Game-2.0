@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/style.css">
-    <title>Leaderboards</title>
-    <script src="javascript/scripts.js" defer></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Leaderboard</title>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}" defer></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,13 +14,13 @@
 
 <main class="menu-content">
     <header>
-        <img id="logo" src="img/transparent-logo.png" alt="logo">
+        <img id="logo" src="{{ url_for('static', filename='img/transparent-logo.png') }}" alt="logo">
         <h1>Quiz game</h1>
         <h2 class="orange-text">Test your knowledge!</h2>
     </header>
-    <h1>Leaderboards</h1>
+    <h1>Leaderboard</h1>
 
-    <img id="trophy" src="img/podium-trophy-clipart-md.png" alt="trophy-podium">
+    <img id="trophy" src="{{ url_for('static', filename='img/podium-trophy-clipart-md.png') }}" alt="trophy-podium">
 
     <ol>
         <li><span class="white-text">ykkonen</span> .............. <span class="white-text">pisteet</span></li>

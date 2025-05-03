@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Logged-in-user-Main menu</title>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}" defer></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet">
+</head>
+<body>
+
+<main class="menu-content">
+    <header>
+        <img id="logo" src="{{ url_for('static', filename='img/transparent-logo.png') }}" alt="logo">
+        <h1>Quiz game</h1>
+        <h2 class="orange-text">Test your knowledge!</h2>
+        <p>Logged in as <span id="usernameDisplay" class="white-text">{{ username }}</span></p>
+    </header>
+
+    <nav>
+        <ul id="links">
+            <li><a href="{{ url_for('game') }}" class="menu-link">New game</a></li>
+            <!-- TODO: add "disabled" class for this link if the user doesn't have a save file -->
+            <li><a href="{{ url_for('game') }}" class="menu-link">Load game</a></li>
+            <li><a href="{{ url_for('leaderboard') }}" class="menu-link">Leaderboard</a></li>
+            <li><a id="show-instructions" href="#" class="menu-link">Show instructions</a></li>
+            <li><a href="{{ url_for('logout') }}" class="menu-link">Log out</a></li>
+        </ul>
+    </nav>
+
+    <dialog id="instructions-dialog">
+        <h2>How to play Quiz game</h2>
+        <p>Instructions</p>
+        <a id="hide-instructions" href="#">Close</a>
+    </dialog>
+
+</main>
+
+</body>
+</html>

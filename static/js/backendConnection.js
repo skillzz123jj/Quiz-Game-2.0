@@ -53,14 +53,14 @@ export async function createUser() {
   }
 
   try {
-    const response = await fetch(`http://localhost:5000/createUser?name=${encodeURIComponent(username)}`);
+    const response = await fetch(`{{ url_for('createUser')}}/?name=${encodeURIComponent(username)}`);
 
     if (!response.ok) {
       console.error("Failed to fetch data from the backend.");
       return;
     }
     sessionStorage.setItem("username", username);
-      window.location.href = "logged-in-new-user-main-menu.html";
+      window.location.href = "{{ url_for('main-menu')}}";
 
   } catch (error) {
     console.error("Error communicating with the backend:", error);

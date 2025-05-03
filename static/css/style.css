@@ -25,10 +25,6 @@
     src: url("../fonts/Behavior.otf") format("opentype");
 }
 
-#low-opacity {
-    opacity: 10%;
-}
-
 h1 {
     color: var(--light-font);
     font-family: "Behavior";
@@ -160,4 +156,5 @@ a:link {
 
 a.disabled {
     pointer-events: none;
+    opacity: 10%;
 }

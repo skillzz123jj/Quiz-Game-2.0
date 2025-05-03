@@ -20,7 +20,7 @@ def create_user(username):
     create_savefile()
 
 def login_user(username):
-    query = "SELECT id, username FROM users WHERE username = %s"
+    query = "SELECT user_id, username FROM users WHERE username = %s"
     params = (username,)  #Adding parameters this way makes sure that querys are safe
     DatabaseConnector.execute_query(DatabaseConnector.connection, query, params)
 

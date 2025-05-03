@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <title>Log in</title>
-    <script src="javascript/scripts.js" defer></script>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}" defer></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,12 +15,12 @@
 
 <main class="menu-content">
     <header>
-        <img id="logo" src="img/transparent-logo.png" alt="logo">
+        <img id="logo" src="{{ url_for('static', filename='img/transparent-logo.png') }}" alt="logo">
     </header>
     <h1>Log in</h1>
     <h2 class="orange-text">Write your username</h2>
-    <form id="authentication-form">
-        <input type="text" placeholder="username">
+    <form method="POST" id="authentication-form">
+        <input type="text" name="username" placeholder="username">
         <input type="submit" value="Ok" class="menu-link menu-link-small">
     </form>
 </main>

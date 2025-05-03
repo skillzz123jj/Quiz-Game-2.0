@@ -14,9 +14,9 @@ const playerHorizontal = new Image();
 const playerVerticalUp = new Image();
 const playerVerticalDown = new Image();
 
-playerHorizontal.src = "../Images/pixil-frame-h.png";
-playerVerticalUp.src = "../Images/pixil-frame-v-down.png";
-playerVerticalDown.src = "../Images/pixil-frame-v-up.png";
+playerHorizontal.src = `${SCRIPT_ROOT}/static/img/pixil-frame-h.png`;
+playerVerticalUp.src = `${SCRIPT_ROOT}/static/img/pixil-frame-v-down.png`;;
+playerVerticalDown.src = `${SCRIPT_ROOT}/static/img/pixil-frame-v-up.png`;;
 
 const spriteWidth = 54;
 const spriteHeight = 54;
