@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <title>Start menu</title>
     <script src="{{ url_for('static', filename='js/scripts.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/instructions.js') }}" defer></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,12 +30,7 @@
         </ul>
     </nav>
 
-
-    <dialog id="instructions-dialog">
-        <h2>How to play Quiz game</h2>
-        <p>Instructions</p>
-        <a id="hide-instructions" href="#">Close</a>
-    </dialog>
+    {% include "instructions.html" %}
 
 </main>
 
