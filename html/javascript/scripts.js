@@ -23,7 +23,7 @@ function dark_mode() {
   const username = sessionStorage.getItem("username");
   if (username) {
   document.getElementById("usernameDisplay").textContent = username;
-} else {
+}/* else {
   window.location.href = "create-profile.html";
-}
+}*/
 
