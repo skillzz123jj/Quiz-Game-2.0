@@ -254,12 +254,15 @@ canvas {
     height: 50px;
 }
 
-#center-box {
-    display: none;
+.centered-dialog {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+#center-box {
+    display: none;
     background-color: var(--white);
     padding: 200px 150px;
     border-radius: 10px;
