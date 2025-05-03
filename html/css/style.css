@@ -75,6 +75,10 @@ header {
     width: 35%;
 }
 
+.white-text {
+    color: var(--light-font);
+}
+
 .orange-text {
     color: var(--main-orange);
 }
@@ -150,8 +154,4 @@ a:link {
 
 a.disabled {
     pointer-events: none;
-}
-
-#usernameDisplay {
-    color: var(--light-font);
 }
