@@ -100,24 +100,43 @@ header {
 
 #links li {
     list-style-type: none;
-    background-color: var(--light-purple);
-    border-radius: 3px;
-    font-size: 18px;
 }
 
-#links li a {
+#links li .menu-link {
     display: block;
     width: 100%;
     text-align: center;
     padding: 0.5rem;
 }
 
-a {
+.menu-link {
+    font-size: 18px;
+    background-color: var(--light-purple);
+    border-radius: 3px;
+}
+
+.menu-link-small {
+    font-size: 0.8rem;
+}
+
+#authentication-form {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	row-gap: 0.5rem;
+}
+
+#authentication-form .menu-link {
+	margin: 0 1rem;
+}
+
+a, .menu-link {
     color: var(--dark-font);
 }
 
-a:hover {
+a:hover, .menu-link:hover {
     box-shadow: 0 0 15px var(--light-orange);
+    cursor: pointer;
 }
 
 a:link {
