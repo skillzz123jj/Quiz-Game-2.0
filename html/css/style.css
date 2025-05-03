@@ -50,6 +50,13 @@ main {
 }
 
 .menu-content {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+    border-radius: 15px;
+    padding: 1rem;
+    text-align: center;
+    align-items: center;
     margin: 0 20rem;
 }
 
@@ -126,26 +133,6 @@ a:link {
 
 #instructions-dialog::backdrop {
     background: rgba(220, 220, 245, 0.5);
-}
-
-#create-profile-content {
-    display: flex;
-    flex-direction: column;
-    row-gap: 0.5rem;
-    border-radius: 15px;
-    padding: 1rem;
-    text-align: center;
-    align-items: center;
-}
-
-#leaderboards {
-    display: flex;
-    flex-direction: column;
-    row-gap: 0.5rem;
-    border-radius: 15px;
-    padding: 1rem;
-    text-align: center;
-    align-items: center;
 }
 
 .dark-mode {
