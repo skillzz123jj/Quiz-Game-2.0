@@ -152,6 +152,10 @@ a:link {
     padding: 1rem;
 }
 
+#instructions-dialog .menu-link:hover {
+    box-shadow: 0 0 15px var(--light-purple);
+}
+
 #instructions-dialog::backdrop {
     background: var(--transparent-gray);
 }
