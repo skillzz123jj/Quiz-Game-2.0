@@ -269,7 +269,7 @@ canvas {
 
 #quit-btn {
     position: absolute;
-    bottom: 20px;
+    bottom: 15px;
     left: 50%;
     transform: translateX(-50%);
     padding: 12px 20px;
@@ -277,8 +277,14 @@ canvas {
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    background-color: var(--light-purple);
+    border-radius: 3px;
 }
 
 #show-instructions:hover {
     cursor: pointer;
+}
+
+#leaderboard-back-button, #hide-instructions {
+    padding: 0 3rem;
 }

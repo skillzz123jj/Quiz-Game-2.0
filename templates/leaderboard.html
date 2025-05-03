@@ -35,6 +35,11 @@
         <li></li>
         <li></li>
     </ol>
+    {% if username %}
+        <a href="{{ url_for('main_menu') }}" id="leaderboard-back-button" class="menu-link menu-link-small">Back</a>
+    {% else %}
+        <a href="{{ url_for('start_menu') }}" id="leaderboard-back-button" class="menu-link menu-link-small">Back</a>
+    {% endif %}
 </main>
 
 </body>

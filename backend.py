@@ -74,7 +74,10 @@ def logout():
 
 @app.route('/leaderboard')
 def leaderboard():
-    return render_template("leaderboard.html")
+    return render_template(
+        "leaderboard.html",
+        username=session.get("username")
+    )
 
 @app.route('/game')
 def game():
