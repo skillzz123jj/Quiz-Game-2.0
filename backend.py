@@ -30,7 +30,7 @@ def handle_create_user():
     session["username"] = username
     return jsonify({'message': 'User created successfully'})
 
-@app.route('/start-menu')
+@app.route('/')
 def start_menu():
     return render_template("start-menu.html")
 
