@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="game-html">
 <head>
     <meta charset="UTF-8">
     <title>Quiz-game-2.0</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/gameplayStyle.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
@@ -19,7 +19,7 @@
     <script type="module" src="{{ url_for('static', filename='js/gameState.js') }}"></script>
     <script type="module" src="{{ url_for('static', filename='js/instructions.js') }}"></script>
 </head>
-<body>
+<body id="game-body">
 
 <main id="map">
     <!-- Holds the UI components -->
