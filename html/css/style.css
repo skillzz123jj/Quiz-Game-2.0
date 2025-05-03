@@ -152,6 +152,10 @@ a:link {
     background-color: var(--darkmode-dark);
 }
 
+a.disabled {
+    pointer-events: none;
+}
+
 #usernameDisplay {
     color: var(--light-font);
 }
