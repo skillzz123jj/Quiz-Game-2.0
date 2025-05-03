@@ -151,3 +151,7 @@ a:link {
 .dark-mode {
     background-color: var(--darkmode-dark);
 }
+
+#usernameDisplay {
+    color: var(--light-font);
+}
