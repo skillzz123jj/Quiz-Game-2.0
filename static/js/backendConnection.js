@@ -1,46 +1,54 @@
 'use strict';
 
-import {handleAnswer} from './gameState.js';
+import { handleAnswer } from './gameState.js';
 
-//Creates a call to backend python via Flask
+// Creates a call to backend python via Flask
 export async function fetchCountryData(country) {
-
   const response = await fetch(
-      `http://localhost:5000/api/country?name=${encodeURIComponent(country)}`);
+    `http://localhost:5000/api/country?name=${encodeURIComponent(country)}`
+  );
 
   if (!response.ok) {
     console.error("Failed to fetch data from the backend.");
+    document.getElementById('country-data').innerHTML = "<p>Error loading data.</p>";
     return;
   }
+
   const data = await response.json();
-  console.log(data);
+  console.log("Backend response:", data);
 
   const box = document.getElementById('country-data');
 
+  const answers = [data.correct, data.incorrect].sort(() => Math.random() - 0.5);
+
   box.innerHTML = `
-    <strong>Country:</strong> ${data.country}<br>
-    <ul>
-      <li><button id="answer1" type="button">${data.result}</button></li>
-      <li><button id="answer2" type="button">Placeholder</button></li>
-    </ul>
-  `;
+  <strong>Country:</strong> ${data.correct.country}<br>
+  <ul>
+    ${answers.map((ans, i) => `
+      <li><button id="answer${i + 1}" type="button">${ans.result}</button></li>
+    `).join('')}
+  </ul>
+  <button id="close-btn" style="margin-top: 10px; display: none;">Close</button>
+`;
 
   document.getElementById('center-box').style.display = 'block';
 
-  document.getElementById('answer1').addEventListener('click', (e) => {
-    handleAnswer(data.correct, 1);
+  answers.forEach((ans, i) => {
+    document.getElementById(`answer${i + 1}`).addEventListener('click', () => {
+      handleAnswer(ans.correct, i + 1);
+    });
   });
-
-  document.getElementById('answer2').addEventListener('click', (e) => {
-    handleAnswer(data.correct, 2);
-  });
-
 }
 
-
 document.addEventListener("DOMContentLoaded", () => {
-  const button = document.getElementById("create-user-btn");
-    button.addEventListener("click", createUser);
+  const createButton = document.getElementById("create-user-btn");
+  const loginForm = document.getElementById("authentication-form"); // Get the form element
+
+  // Ensure button event listeners are added after DOM is loaded
+  createButton.addEventListener("click", createUser);
+
+  // Add event listener to the form's submit event
+  loginForm.addEventListener("submit", loginUser);
 });
 
 export async function createUser() {
@@ -53,18 +61,34 @@ export async function createUser() {
   }
 
   try {
-    const response = await fetch(`{{ url_for('createUser')}}/?name=${encodeURIComponent(username)}`);
+    const response = await fetch(`{{ url_for('createUser') }}?name=${encodeURIComponent(username)}`);
 
     if (!response.ok) {
       console.error("Failed to fetch data from the backend.");
       return;
     }
-    sessionStorage.setItem("username", username);
-      window.location.href = "{{ url_for('main-menu')}}";
-
+    localStorage.setItem("username", username);
+    console.log(localStorage.getItem("username"));
+    window.location.href = "{{ url_for('main-menu') }}";
   } catch (error) {
     console.error("Error communicating with the backend:", error);
   }
 }
 
+export async function loginUser(event) {
 
+
+ console.log("called")
+  const input = document.getElementById("username-input");
+  const username = input.value.trim();
+
+  if (!username) {
+    alert("Please enter a username.");
+    return;
+  }
+
+  localStorage.setItem("username", username);
+  console.log(localStorage.getItem("username"));
+
+ // window.location.href = "{{ url_for('main-menu') }}";
+}

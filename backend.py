@@ -1,9 +1,10 @@
 from flask import Flask, request, jsonify, session, render_template, redirect, url_for
 from flask_cors import CORS
 import requests
-from wikidataConnection import get_country_info
+from wikidataConnection import get_country_info, get_question_pair
 from handleUsers import create_user, login_user
-from DatabaseConnector import execute_query
+import DatabaseConnector
+import json
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -18,7 +19,8 @@ def country_info():
     country_name = request.args.get('name')
     if not country_name:
         return jsonify({'error': 'Missing parameters'}), 400
-    result = get_country_info(country_name, 'population')
+
+    result = get_question_pair(country_name, 'capital')
     return jsonify(result)
 
 @app.route('/createUser')
@@ -84,6 +86,37 @@ def game():
     # TODO: create a save file, possibly overwriting
     #  the existing save file
     return render_template("game.html")
+
+@app.route('/databaseInteraction')
+def interact_lives():
+    username = request.args.get('username')
+    if not username:
+        return jsonify({'error': 'Missing username'}), 400
+
+    # Get user_id from username (using parameterized query to prevent SQL injection)
+    user_query = "SELECT user_id FROM users WHERE username = %s"
+    user_result = DatabaseConnector.execute_query(DatabaseConnector.connection, user_query, (username,))
+
+    if not user_result:
+        return jsonify({'error': 'User not found'}), 404
+
+    user_id = user_result[0][0]
+
+    # Now get the game_state
+    game_query = "SELECT game_state FROM game_progress WHERE user_id = %s"
+    game_result = DatabaseConnector.execute_query(DatabaseConnector.connection, game_query, (user_id,))
+
+    if not game_result:
+        return jsonify({'error': 'No game progress found'}), 404
+
+    game_state_str = game_result[0][0]
+
+    try:
+        game_state = json.loads(game_state_str)
+    except json.JSONDecodeError:
+        return jsonify({'error': 'Invalid game state data'}), 500
+
+    return jsonify({'lives': game_state['lives']})
 
 
 if __name__ == '__main__':

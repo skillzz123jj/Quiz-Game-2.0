@@ -25,18 +25,26 @@ def login_user(username):
     DatabaseConnector.execute_query(DatabaseConnector.connection, query, params)
 
 
+
+
 def create_savefile():
     query = """
     CREATE TABLE IF NOT EXISTS game_progress(
-    progress_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
     game_state JSON NOT NULL,
     game_started BOOLEAN DEFAULT FALSE,
-    game_score INT NOT NULL,
     last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY(user_id) REFERENCES users(user_id)
     ); """
     DatabaseConnector.execute_query(DatabaseConnector.connection, query)
+    query = """
+    INSERT INTO game_progress(user_id, game_state, game_started)
+    VALUES(1,'{"lives": 3, "score": 0, "countries": []}',1
+    );
+    """
+    DatabaseConnector.execute_query(DatabaseConnector.connection, query)
+
+
 
 
 

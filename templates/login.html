@@ -21,8 +21,8 @@
     <h1>Log in</h1>
     <h2 class="orange-text">Write your username</h2>
     <form method="POST" id="authentication-form">
-        <input type="text" name="username" placeholder="username">
-        <input type="submit" value="Ok" class="menu-link menu-link-small">
+        <input type="text" name="username" id="username-input" placeholder="username">
+        <input type="submit" id="login-user-btn" value="Ok" class="menu-link menu-link-small">
         <a href="{{ url_for('start_menu') }}" class="menu-link menu-link-small">Back</a>
     </form>
 </main>
