@@ -91,6 +91,10 @@ header {
     color: var(--main-orange);
 }
 
+.purple-text {
+    color: var(--main-purple);
+}
+
 #links {
     display: flex;
     align-items: stretch;
@@ -163,6 +167,10 @@ a:link {
 
 #instructions-dialog::backdrop {
     background: var(--transparent-gray);
+}
+
+#instructions-text {
+    padding: 0.5rem 0 0.7rem 0;
 }
 
 .dark-mode {
