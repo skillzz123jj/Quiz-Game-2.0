@@ -38,3 +38,15 @@ def execute_query(connection, query, params=None):
 
     cursor.close()
     return result
+
+#Function fetches only one result
+def fetch_one(connection, query, params=None):
+    cursor = connection.cursor()
+    if params:
+        cursor.execute(query, params)
+    else:
+        cursor.execute(query)
+    result = cursor.fetchone()
+    cursor.close()
+    return result
+
