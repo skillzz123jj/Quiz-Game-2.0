@@ -294,10 +294,6 @@ canvas {
     border-radius: 3px;
 }
 
-#show-instructions:hover {
-    cursor: pointer;
-}
-
 #leaderboard-back-button, #hide-instructions {
     padding: 0 3rem;
 }
