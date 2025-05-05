@@ -22,7 +22,7 @@ def create_user(username):
         print(f"User '{username}' inserted.")
     except Exception as e:
         print(f"Error inserting user: {e}")
-        return 
+        return
 
     query = "SELECT user_id FROM users WHERE username = %s"
     result = DatabaseConnector.fetch_one(DatabaseConnector.connection, query, params)

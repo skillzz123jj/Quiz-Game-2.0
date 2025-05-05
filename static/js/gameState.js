@@ -9,6 +9,7 @@ export function handleAnswer(isCorrect, clickedButton) {
 if (isCorrect) {
   document.getElementById(`answer${clickedButton}`).style.backgroundColor = 'rgba(0, 128, 0, 0.3)';
   document.getElementById(`answer${3 - clickedButton}`).style.backgroundColor = 'rgba(255, 0, 0, 0.3)';
+  updateScore(100)
 } else {
   document.getElementById(`answer${clickedButton}`).style.backgroundColor = 'rgba(255, 0, 0, 0.3)';
   document.getElementById(`answer${3 - clickedButton}`).style.backgroundColor = 'rgba(0, 128, 0, 0.3)';
@@ -24,7 +25,7 @@ if (isCorrect) {
 
 async function checkLives() {
   const response = await fetch(
-    `${SCRIPT_ROOT}/databaseInteraction`
+    `${SCRIPT_ROOT}/fetchLives`
   );
 
  if (!response.ok) {
@@ -33,23 +34,91 @@ async function checkLives() {
   }
 
   const data = await response.json();
- 
+
   if (data.error) {
     console.error(`Error from backend: ${data.error}`);
     return;
   }
 
-  const lives = data.lives;
+  let lives = parseInt(data.lives);
 
   if (lives === undefined) {
     console.error("No lives data found.");
     return;
   }
+  lives--;
+  updateLives(lives)
+  updateHeartsDisplay(lives)
+
+  if (lives <= 0){
+    endGame()
+  }
 
   console.log("Current lives:", lives);
-  return lives;
+
 }
 
 
 
+function endGame(){
+
+}
+
+async function updateLives(newLives) {
+  const response = await fetch(`${SCRIPT_ROOT}/updateLives`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ lives: newLives })
+  });
+
+  if (!response.ok) {
+    console.error("Failed to update lives.");
+    return;
+  }
+
+  const data = await response.json();
+  console.log("Update response:", data);
+}
+
+function updateHeartsDisplay(lives) {
+  const totalHearts = 3;
+  console.log(lives)
+  for (let i = 1; i <= totalHearts; i++) {
+    const heart = document.getElementById(`life-${i}`);
+    console.log(`life-${i}`)
+    if (i <= lives) {
+      heart.src = "{{ url_for('static', filename='img/life.png') }}";
+    } else {
+      heart.src = "{{ url_for('static', filename='img/lost-life.png') }}";
+    }
+  }
+}
+
+function updateScore(addedScore) {
+  let newScore = parseInt(document.getElementById('score-container').querySelector('p').textContent) || 0;
+  newScore += addedScore;
+  const scoreElement = document.getElementById('score-container').querySelector('p');
+  scoreElement.textContent = `${newScore} points`;
+  updateScoreDatabase(newScore)
+}
+
+async function updateScoreDatabase(newScore) {
+  const response = await fetch(`${SCRIPT_ROOT}/updateScore`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ score: newScore })
+  });
+
+  if (!response.ok) {
+    console.error("Failed to update lives.");
+    return;
+  }
+
+  const data = await response.json();
+  console.log("Update response:", data);
+}
 

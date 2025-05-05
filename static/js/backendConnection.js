@@ -30,6 +30,7 @@ export async function fetchCountryData(country) {
   </ul>
   <button id="close-btn" style="margin-top: 10px; display: none;">Close</button>
 `;
+  //<a>Correct answer!</a>
 
   document.getElementById('center-box').style.display = 'block';
 
