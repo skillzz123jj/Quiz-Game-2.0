@@ -5,6 +5,7 @@
     --light-orange: #f9efe1;
     --dark-font: #1f1f1f;
     --light-font: #f4f4f4;
+    --transparent-gray: rgba(220, 220, 245, 0.5);
 
     --darkmode-dark: #1f1f1f;
     --darkmode-light: #f4f4f4;
@@ -13,7 +14,6 @@
     --white: #ffff;
     --dot: #FF0000FF;
     --pink: #FF4DA6FF;
-    --transparent-gray: rgba(220, 220, 245, 0.5);
 }
 
 * {
