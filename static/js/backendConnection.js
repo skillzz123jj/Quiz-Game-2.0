@@ -5,7 +5,7 @@ import { handleAnswer } from './gameState.js';
 // Creates a call to backend python via Flask
 export async function fetchCountryData(country) {
   const response = await fetch(
-    `http://localhost:5000/api/country?name=${encodeURIComponent(country)}`
+    `${SCRIPT_ROOT}/api/country?name=${encodeURIComponent(country)}`
   );
 
   if (!response.ok) {

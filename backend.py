@@ -16,6 +16,9 @@ app.secret_key = b'60b676f51c4358745dae296b0e13f16261076c508030a35a3d3c58ebb0717
 #Javascript is able to interact with this function
 @app.route('/api/country')
 def country_info():
+    if not session.get("username"):
+        return {"error": "Please log in"}, 403
+
     country_name = request.args.get('name')
     if not country_name:
         return jsonify({'error': 'Missing parameters'}), 400
@@ -41,9 +44,12 @@ def main_menu():
     # TODO: tell the template if the user has a save file.
     #  If the save file doesn't exist, the template should
     #  disable the "Load game" button
+    username = session.get("username")
+    if not username:
+        return redirect(url_for("start_menu"))
     return render_template(
         "main-menu.html",
-        username=session.get("username")
+        username=username
     )
 
 @app.route('/create-profile', methods=['GET', 'POST'])
@@ -83,6 +89,8 @@ def leaderboard():
 
 @app.route('/game')
 def game():
+    if not session.get("username"):
+        return redirect(url_for("start_menu"))
     # TODO: create a save file, possibly overwriting
     #  the existing save file
     return render_template("game.html")
