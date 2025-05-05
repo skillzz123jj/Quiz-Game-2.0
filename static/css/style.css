@@ -12,8 +12,7 @@
 
     --background-color: #2f2f3d;
     --white: #ffff;
-    --dot: #FF0000FF;
-    --pink: #FF4DA6FF;
+    --red: #ff0000ff;
 }
 
 * {
@@ -209,7 +208,7 @@ canvas {
 .country-dot {
     width: 10px;
     height: 10px;
-    background-color: var(--dot);
+    background-color: var(--red);
     border-radius: 50%;
     border: 2px solid var(--white);
 }
@@ -218,10 +217,10 @@ canvas {
 
     width: 10px;
     height: 10px;
-    background-color: var(--dot);
+    background-color: var(--red);
     border-radius: 50%;
     border: 2px solid var(--white);
-    box-shadow: 0 0 20px var(--pink), 0 0 30px var(--pink), 0 0 40px var(--pink), 0 0 50px var(--pink);
+    box-shadow: 0 0 20px var(--red), 0 0 30px var(--red), 0 0 40px var(--red), 0 0 50px var(--red);
 
 }
 
@@ -257,11 +256,20 @@ canvas {
 #score-container p {
     color: black;
     font-size: 20px;
+
 }
 
 .icons {
     width: 50px;
     height: 50px;
+}
+
+#question-mark-icon {
+    border-radius: 50%;
+}
+
+#question-mark-icon:hover {
+    box-shadow: 0 0 20px var(--red), 0 0 30px var(--red), 0 0 40px var(--red), 0 0 50px var(--red);
 }
 
 .centered-dialog {
