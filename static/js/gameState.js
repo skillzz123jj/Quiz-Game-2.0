@@ -12,7 +12,7 @@ if (isCorrect) {
 } else {
   document.getElementById(`answer${clickedButton}`).style.backgroundColor = 'rgba(255, 0, 0, 0.3)';
   document.getElementById(`answer${3 - clickedButton}`).style.backgroundColor = 'rgba(0, 128, 0, 0.3)';
-  checkLives(localStorage.getItem("username"));
+  checkLives();
 }
 
   const closeBtn = document.getElementById('close-btn');
@@ -22,11 +22,9 @@ if (isCorrect) {
   }, { once: true });
 }
 
-async function checkLives(userId) {
-
-  console.log("username" + userId)
+async function checkLives() {
   const response = await fetch(
-    `http://localhost:5000/databaseInteraction?username=${encodeURIComponent(userId)}`
+    `${SCRIPT_ROOT}/databaseInteraction`
   );
 
  if (!response.ok) {

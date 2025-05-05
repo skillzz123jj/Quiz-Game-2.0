@@ -89,9 +89,9 @@ def game():
 
 @app.route('/databaseInteraction')
 def interact_lives():
-    username = request.args.get('username')
+    username = session.get("username")
     if not username:
-        return jsonify({'error': 'Missing username'}), 400
+        return jsonify({'error': 'User has not logged in'}), 400
 
     # Get user_id from username (using parameterized query to prevent SQL injection)
     user_query = "SELECT user_id FROM users WHERE username = %s"
