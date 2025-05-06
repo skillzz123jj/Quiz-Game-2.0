@@ -6,13 +6,14 @@
     --dark-font: #1f1f1f;
     --light-font: #f4f4f4;
     --transparent-gray: rgba(220, 220, 245, 0.5);
+    --green: #01ff04;
+    --red: #ff0000ff;
 
     --darkmode-dark: #1f1f1f;
     --darkmode-light: #f4f4f4;
 
     --background-color: #2f2f3d;
     --white: #ffff;
-    --red: #ff0000ff;
 }
 
 * {
@@ -124,13 +125,19 @@ header {
     font-size: 0.8rem;
 }
 
-#country-data ul li button {
-    font-size: 18px;
-    background-color: var(--light-purple);
-    border-radius: 3px;
+#country-data ul li {
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
 }
 
-#country-data ul li button:hover {
+#country-data ul li button, #close-btn {
+    font-size: 18px;
+    background-color: var(--light-purple);
+    border-radius: 5px;
+}
+
+#country-data ul li button:hover, #close-btn:hover {
     box-shadow: 0 0 15px var(--light-orange);
     cursor: pointer;
 }

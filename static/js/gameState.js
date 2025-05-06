@@ -7,12 +7,12 @@ export function handleAnswer(isCorrect, clickedButton) {
   btn2.disabled = true;
 
 if (isCorrect) {
-  document.getElementById(`answer${clickedButton}`).style.backgroundColor = 'rgba(0, 128, 0, 0.3)';
-  document.getElementById(`answer${3 - clickedButton}`).style.backgroundColor = 'rgba(255, 0, 0, 0.3)';
+  document.getElementById(`answer${clickedButton}`).style.backgroundColor = 'var(--green)';
+  document.getElementById(`answer${3 - clickedButton}`).style.backgroundColor = 'var(--red)';
   updateScore(100)
 } else {
-  document.getElementById(`answer${clickedButton}`).style.backgroundColor = 'rgba(255, 0, 0, 0.3)';
-  document.getElementById(`answer${3 - clickedButton}`).style.backgroundColor = 'rgba(0, 128, 0, 0.3)';
+  document.getElementById(`answer${clickedButton}`).style.backgroundColor = 'var(--red)';
+  document.getElementById(`answer${3 - clickedButton}`).style.backgroundColor = 'var(--green)';
   checkLives();
 }
 
