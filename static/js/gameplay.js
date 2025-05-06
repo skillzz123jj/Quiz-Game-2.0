@@ -14,9 +14,9 @@ const playerHorizontal = new Image();
 const playerVerticalUp = new Image();
 const playerVerticalDown = new Image();
 
-playerHorizontal.src = `${SCRIPT_ROOT}/static/img/pixil-frame-h.png`;
-playerVerticalUp.src = `${SCRIPT_ROOT}/static/img/pixil-frame-v-down.png`;;
-playerVerticalDown.src = `${SCRIPT_ROOT}/static/img/pixil-frame-v-up.png`;;
+playerHorizontal.src = `${SCRIPT_ROOT}/static/img/airplane-sprite2.png`;;
+playerVerticalUp.src = `${SCRIPT_ROOT}/static/img/airplane-sprite2-up.png`;;
+playerVerticalDown.src = `${SCRIPT_ROOT}/static/img/airplane-sprite2-down.png`;;
 
 const spriteWidth = 54;
 const spriteHeight = 54;
@@ -47,10 +47,10 @@ function drawPlayer() {
 
 
 function updateDirection() {
-  if (dy > 0) {
+  if (dy < 0) {
     currentSprite = playerVerticalUp;
     flipHorizontal = false;
-  } else if (dy < 0) {
+  } else if (dy > 0) {
     currentSprite = playerVerticalDown;
     flipHorizontal = false;
   } else if (dx > 0) {
