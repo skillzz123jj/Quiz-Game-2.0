@@ -1,6 +1,6 @@
 'use strict'
 
-export function handleAnswer(isCorrect, clickedButton) {
+export function handleAnswer(isCorrect, clickedButton, country) {
   const btn1 = document.getElementById('answer1');
   const btn2 = document.getElementById('answer2');
   btn1.disabled = true;
@@ -10,7 +10,7 @@ if (isCorrect) {
   document.getElementById(`answer${clickedButton}`).style.backgroundColor = 'var(--green)';
   document.getElementById(`answer${3 - clickedButton}`).style.backgroundColor = 'var(--red)';
   document.getElementById('correctAnswer').style.display = 'block';
-  updateScore(100)
+  updateDatabase(100, country)
 } else {
   document.getElementById(`answer${clickedButton}`).style.backgroundColor = 'var(--red)';
   document.getElementById(`answer${3 - clickedButton}`).style.backgroundColor = 'var(--green)';
@@ -101,29 +101,41 @@ function updateHeartsDisplay(lives) {
   }
 }
 
-function updateScore(addedScore) {
-  let newScore = parseInt(document.getElementById('score-container').querySelector('p').textContent) || 0;
-  newScore += addedScore;
-  const scoreElement = document.getElementById('score-container').querySelector('p');
+function updateDatabase(addedScore, newCountry = null) {
+  let scoreElement = document.getElementById('score-container').querySelector('p');
+  let currentScore = parseInt(scoreElement.textContent) || 0;
+  let newScore = currentScore + addedScore;
+
   scoreElement.textContent = `${newScore} points`;
-  updateScoreDatabase(newScore)
+  updateScoreAndCountryDatabase(newScore, newCountry);
 }
 
-async function updateScoreDatabase(newScore) {
-  const response = await fetch(`${SCRIPT_ROOT}/updateScore`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ score: newScore })
-  });
 
-  if (!response.ok) {
-    console.error("Failed to update lives.");
-    return;
+async function updateScoreAndCountryDatabase(newScore, newCountry = null) {
+  const payload = { score: newScore };
+  if (newCountry) {
+    payload.new_country = newCountry;
   }
 
-  const data = await response.json();
-  console.log("Update response:", data);
+  try {
+    const response = await fetch(`${SCRIPT_ROOT}/updateJSON`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error("Failed to update score or country:", data.error);
+    } else {
+      console.log("Update successful:", data.message);
+    }
+  } catch (error) {
+    console.error("Error communicating with the backend:", error);
+  }
 }
+
 

@@ -41,7 +41,7 @@ export async function fetchCountryData(country) {
 
   answers.forEach((ans, i) => {
     document.getElementById(`answer${i + 1}`).addEventListener('click', () => {
-      handleAnswer(ans.correct, i + 1);
+      handleAnswer(ans.correct, i + 1, data.correct.country);
     });
   });
 }

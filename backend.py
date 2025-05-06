@@ -29,7 +29,7 @@ def country_info():
             return jsonify({'error': 'No data found for the specified country'}), 404
         return jsonify(result)
     except Exception as e:
-        print(f"Error in /api/country: {e}") 
+        print(f"Error in /api/country: {e}")
         return jsonify({'error': 'Failed to retrieve country info'}), 500
 
 
@@ -171,26 +171,25 @@ def update_lives():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-@app.route('/updateScore', methods=['POST'])
-def update_score():
+@app.route('/updateJSON', methods=['POST'])
+def update_score_and_countries():
     username = session.get("username")
     if not username:
         return jsonify({'error': 'User not logged in'}), 400
 
     data = request.get_json()
-    if not data or 'score' not in data:
-        return jsonify({'error': 'Missing score parameter'}), 400
+    if not data or 'score' not in data or 'new_country' not in data:
+        return jsonify({'error': 'Missing score or new_country parameter'}), 400
 
     new_score = data['score']
+    new_country = data['new_country']
 
-    # Get user_id from username
     user_query = "SELECT user_id FROM users WHERE username = %s"
     user_result = DatabaseConnector.execute_query(DatabaseConnector.connection, user_query, (username,))
     if not user_result:
         return jsonify({'error': 'User not found'}), 404
     user_id = user_result[0][0]
 
-    # Get current game_state
     game_query = "SELECT game_state FROM game_progress WHERE user_id = %s"
     game_result = DatabaseConnector.execute_query(DatabaseConnector.connection, game_query, (user_id,))
     if not game_result:
@@ -198,14 +197,20 @@ def update_score():
 
     try:
         game_state = json.loads(game_result[0][0])
-        game_state['score'] = new_score  # ✅ Update score here
+        game_state['score'] = new_score
+
+        if 'countries' not in game_state:
+            game_state['countries'] = []
+
+        if new_country not in game_state['countries']:
+            game_state['countries'].append(new_country)
+
         new_state_str = json.dumps(game_state)
 
-        # Update the game_state in DB
         update_query = "UPDATE game_progress SET game_state = %s WHERE user_id = %s"
         DatabaseConnector.execute_query(DatabaseConnector.connection, update_query, (new_state_str, user_id))
 
-        return jsonify({'message': 'Score updated successfully'})
+        return jsonify({'message': 'Score and country updated successfully'})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
