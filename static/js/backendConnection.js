@@ -30,6 +30,7 @@ export async function fetchCountryData(country) {
   </ul>
   <button id="close-btn" style="margin-top: 10px; display: none;">Close</button>
 `;
+  //<a>Correct answer!</a>
 
   document.getElementById('center-box').style.display = 'block';
 
@@ -41,13 +42,10 @@ export async function fetchCountryData(country) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const createButton = document.getElementById("create-user-btn");
+  const createButton = document.getElementById("authentication-form");
   const loginForm = document.getElementById("authentication-form"); // Get the form element
 
-  // Ensure button event listeners are added after DOM is loaded
-  createButton.addEventListener("click", createUser);
-
-  // Add event listener to the form's submit event
+  createButton.addEventListener("submit", createUser);
   loginForm.addEventListener("submit", loginUser);
 });
 
@@ -77,8 +75,6 @@ export async function createUser() {
 
 export async function loginUser(event) {
 
-
- console.log("called")
   const input = document.getElementById("username-input");
   const username = input.value.trim();
 

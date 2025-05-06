@@ -95,7 +95,7 @@ def game():
     #  the existing save file
     return render_template("game.html")
 
-@app.route('/databaseInteraction')
+@app.route('/fetchLives')
 def interact_lives():
     username = session.get("username")
     if not username:
@@ -110,7 +110,7 @@ def interact_lives():
 
     user_id = user_result[0][0]
 
-    # Now get the game_state
+    #Now get the game_state
     game_query = "SELECT game_state FROM game_progress WHERE user_id = %s"
     game_result = DatabaseConnector.execute_query(DatabaseConnector.connection, game_query, (user_id,))
 
@@ -125,6 +125,82 @@ def interact_lives():
         return jsonify({'error': 'Invalid game state data'}), 500
 
     return jsonify({'lives': game_state['lives']})
+
+@app.route('/updateLives', methods=['POST'])
+def update_lives():
+    username = session.get("username")
+    if not username:
+        return jsonify({'error': 'User not logged in'}), 400
+
+    data = request.get_json()
+    if not data or 'lives' not in data:
+        return jsonify({'error': 'Missing lives parameter'}), 400
+
+    new_lives = data['lives']
+
+    #Get user_id from username
+    user_query = "SELECT user_id FROM users WHERE username = %s"
+    user_result = DatabaseConnector.execute_query(DatabaseConnector.connection, user_query, (username,))
+    if not user_result:
+        return jsonify({'error': 'User not found'}), 404
+    user_id = user_result[0][0]
+
+    #Get current game_state
+    game_query = "SELECT game_state FROM game_progress WHERE user_id = %s"
+    game_result = DatabaseConnector.execute_query(DatabaseConnector.connection, game_query, (user_id,))
+    if not game_result:
+        return jsonify({'error': 'No game progress found'}), 404
+
+    try:
+        game_state = json.loads(game_result[0][0])
+        game_state['lives'] = new_lives
+        new_state_str = json.dumps(game_state)
+
+        #Update the game_state in DB
+        update_query = "UPDATE game_progress SET game_state = %s WHERE user_id = %s"
+        DatabaseConnector.execute_query(DatabaseConnector.connection, update_query, (new_state_str, user_id))
+
+        return jsonify({'message': 'Lives updated successfully'})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/updateScore', methods=['POST'])
+def update_score():
+    username = session.get("username")
+    if not username:
+        return jsonify({'error': 'User not logged in'}), 400
+
+    data = request.get_json()
+    if not data or 'score' not in data:
+        return jsonify({'error': 'Missing score parameter'}), 400
+
+    new_score = data['score']
+
+    # Get user_id from username
+    user_query = "SELECT user_id FROM users WHERE username = %s"
+    user_result = DatabaseConnector.execute_query(DatabaseConnector.connection, user_query, (username,))
+    if not user_result:
+        return jsonify({'error': 'User not found'}), 404
+    user_id = user_result[0][0]
+
+    # Get current game_state
+    game_query = "SELECT game_state FROM game_progress WHERE user_id = %s"
+    game_result = DatabaseConnector.execute_query(DatabaseConnector.connection, game_query, (user_id,))
+    if not game_result:
+        return jsonify({'error': 'No game progress found'}), 404
+
+    try:
+        game_state = json.loads(game_result[0][0])
+        game_state['score'] = new_score  # ✅ Update score here
+        new_state_str = json.dumps(game_state)
+
+        # Update the game_state in DB
+        update_query = "UPDATE game_progress SET game_state = %s WHERE user_id = %s"
+        DatabaseConnector.execute_query(DatabaseConnector.connection, update_query, (new_state_str, user_id))
+
+        return jsonify({'message': 'Score updated successfully'})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 
 if __name__ == '__main__':
