@@ -331,3 +331,14 @@ canvas {
 #leaderboard-back-button, #hide-instructions {
     padding: 0 3rem;
 }
+
+#correctAnswer {
+    display: none;
+    color: var(--green);
+}
+
+#incorrectAnswer {
+    display: none;
+    color: var(--red);
+}
+

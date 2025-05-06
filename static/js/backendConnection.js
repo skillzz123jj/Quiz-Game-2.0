@@ -29,9 +29,13 @@ export async function fetchCountryData(country) {
       <li><button id="answer${i + 1}" type="button">${ans.result}</button></li>
     `).join('')}
   </ul>
-  <button id="close-btn" style="margin-top: 10px; display: none;">Close</button>
+  <p id="correctAnswer">Correct answer!</p>
+  <p id="incorrectAnswer">Wrong answer!<br>You lost 1 life</p>
+  <p id="incorrectAnswer">Wrong answer!<br>You lost 1 life</p>
+ 
+  <button id="close-btn" style="margin-top: 10px; display: none;">Continue</button>
+  <button id="gameOver-btn" style="margin-top: 10px; display: none;">Back to Main Menu</button>
 `;
-  //<a>Correct answer!</a>
 
   document.getElementById('center-box').style.display = 'block';
 

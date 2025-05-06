@@ -23,8 +23,15 @@ def country_info():
     if not country_name:
         return jsonify({'error': 'Missing parameters'}), 400
 
-    result = get_question_pair(country_name, 'capital')
-    return jsonify(result)
+    try:
+        result = get_question_pair(country_name, 'capital')
+        if not result:
+            return jsonify({'error': 'No data found for the specified country'}), 404
+        return jsonify(result)
+    except Exception as e:
+        print(f"Error in /api/country: {e}") 
+        return jsonify({'error': 'Failed to retrieve country info'}), 500
+
 
 @app.route('/createUser')
 def handle_create_user():

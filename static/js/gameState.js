@@ -9,11 +9,13 @@ export function handleAnswer(isCorrect, clickedButton) {
 if (isCorrect) {
   document.getElementById(`answer${clickedButton}`).style.backgroundColor = 'var(--green)';
   document.getElementById(`answer${3 - clickedButton}`).style.backgroundColor = 'var(--red)';
+  document.getElementById('correctAnswer').style.display = 'block';
   updateScore(100)
 } else {
   document.getElementById(`answer${clickedButton}`).style.backgroundColor = 'var(--red)';
   document.getElementById(`answer${3 - clickedButton}`).style.backgroundColor = 'var(--green)';
   checkLives();
+  document.getElementById('incorrectAnswer').style.display = 'block';
 }
 
   const closeBtn = document.getElementById('close-btn');
@@ -52,6 +54,10 @@ async function checkLives() {
 
   if (lives <= 0){
     endGame()
+  document.getElementById('incorrectAnswer').textContent = 'Game over';
+    document.getElementById('close-btn').style.display = 'none';
+  document.getElementById('gameOver-btn').style.display = 'block';
+
   }
 
   console.log("Current lives:", lives);
@@ -63,7 +69,6 @@ async function checkLives() {
 function endGame(){
 
 }
-
 async function updateLives(newLives) {
   const response = await fetch(`${SCRIPT_ROOT}/updateLives`, {
     method: "POST",
