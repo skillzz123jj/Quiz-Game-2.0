@@ -114,7 +114,7 @@ header {
     padding: 0.5rem;
 }
 
-.menu-link {
+.menu-link{
     font-size: 18px;
     background-color: var(--light-purple);
     border-radius: 3px;
@@ -122,6 +122,17 @@ header {
 
 .menu-link-small {
     font-size: 0.8rem;
+}
+
+#country-data ul li button {
+    font-size: 18px;
+    background-color: var(--light-purple);
+    border-radius: 3px;
+}
+
+#country-data ul li button:hover {
+    box-shadow: 0 0 15px var(--light-orange);
+    cursor: pointer;
 }
 
 #authentication-form {
@@ -289,7 +300,7 @@ canvas {
 
 #center-box {
     display: none;
-    background-color: var(--light-purple);
+    background-color: var(--main-purple);
     padding: 200px 150px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
