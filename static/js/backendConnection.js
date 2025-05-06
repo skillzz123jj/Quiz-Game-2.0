@@ -22,7 +22,8 @@ export async function fetchCountryData(country) {
   const answers = [data.correct, data.incorrect].sort(() => Math.random() - 0.5);
 
   box.innerHTML = `
-  <strong>Country:</strong> ${data.correct.country}<br>
+  ${data.correct.country}<br>
+  <p>What is the capital?</p>
   <ul>
     ${answers.map((ans, i) => `
       <li><button id="answer${i + 1}" type="button">${ans.result}</button></li>
