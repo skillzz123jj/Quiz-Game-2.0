@@ -338,11 +338,9 @@ canvas {
 
 #correctAnswer {
     display: none;
-    color: var(--green);
 }
 
 #incorrectAnswer {
     display: none;
-    color: var(--red);
 }
 
