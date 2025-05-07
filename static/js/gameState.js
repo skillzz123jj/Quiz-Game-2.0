@@ -96,8 +96,9 @@ function updateHeartsDisplay(lives) {
     console.log(`life-${i}`);
     if (i <= lives) {
       heart.src = '{{ url_for(\'static\', filename=\'img/life.png\') }}';
+      heart.src = `${SCRIPT_ROOT}/static/img/life.png`;
     } else {
-      heart.src = '{{ url_for(\'static\', filename=\'img/lost-life.png\') }}';
+      heart.src = `${SCRIPT_ROOT}/static/img/lost-life.png`;
     }
   }
 }
