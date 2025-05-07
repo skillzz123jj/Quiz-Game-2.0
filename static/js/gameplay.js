@@ -14,11 +14,11 @@ const playerHorizontal = new Image();
 const playerVerticalUp = new Image();
 const playerVerticalDown = new Image();
 
-playerHorizontal.src = `${SCRIPT_ROOT}/static/img/airplane-sprite2.png`;
+playerHorizontal.src = `${SCRIPT_ROOT}/static/img/red-airplane-left.png`;
 
-playerVerticalUp.src = `${SCRIPT_ROOT}/static/img/airplane-sprite2-up.png`;
+playerVerticalUp.src = `${SCRIPT_ROOT}/static/img/red-airplane-up.png`;
 
-playerVerticalDown.src = `${SCRIPT_ROOT}/static/img/airplane-sprite2-down.png`;
+playerVerticalDown.src = `${SCRIPT_ROOT}/static/img/red-airplane-down.png`;
 
 
 const spriteWidth = 54;
