@@ -25,8 +25,13 @@
     <nav>
         <ul id="links">
             <li><a href="{{ url_for('game') }}" class="menu-link">New game</a></li>
-            <!-- TODO: add "disabled" class for this link if the user doesn't have a save file -->
-            <li><a href="{{ url_for('game') }}" class="menu-link">Load game</a></li>
+            <li>
+                {% if has_savefile %}
+                <a href="{{ url_for('game') }}" class="menu-link">Load game</a>
+                {% else %}
+                <a href="#" class="menu-link disabled" onclick="return false;" aria-disabled="true">Load game</a>
+                {% endif %}
+            </li>
             <li><a href="{{ url_for('leaderboard') }}" class="menu-link">Leaderboard</a></li>
             <li><a id="show-instructions" href="#" class="menu-link">Show instructions</a></li>
             <li><a href="{{ url_for('logout') }}" class="menu-link">Log out</a></li>

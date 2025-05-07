@@ -57,12 +57,48 @@ def create_savefile(user_id):
 
         query = """
         INSERT INTO game_progress(user_id, game_state, game_started)
-        VALUES(%s, '{"lives": 3, "score": 0, "countries": []}', TRUE);
+        VALUES(%s, '{"lives": 3, "score": 0, "countries": []}', False);
         """
         params = (user_id,)
         DatabaseConnector.execute_query(DatabaseConnector.connection, query, params)
     except Exception as e:
         print(f"Error creating savefile: {e}")
+
+
+def check_game_progress(user_id):
+    try:
+        query = """
+        SELECT game_state
+        FROM game_progress
+        WHERE user_id = %s AND game_started = TRUE;
+        """
+        params = (user_id,)
+        result = DatabaseConnector.fetch_one(DatabaseConnector.connection, query, params)
+
+        if result:
+            return result[0]  # or just `result` depending on the fetch method's return format
+        else:
+            print("No active game found or game not started.")
+            return None
+    except Exception as e:
+        print(f"Error checking game progress: {e}")
+        return None
+
+def user_has_savefile(username):
+    try:
+        query = "SELECT user_id FROM users WHERE username = %s;"
+        params = (username,)
+        result = DatabaseConnector.fetch_one(DatabaseConnector.connection, query, params)
+
+        if result:
+            user_id = result[0]
+            game_state = check_game_progress(user_id)
+            return game_state is not None
+        else:
+            return False
+    except Exception as e:
+        print(f"Error in user_has_savefile: {e}")
+        return False
 
 
 

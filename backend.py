@@ -1,8 +1,7 @@
 from flask import Flask, request, jsonify, session, render_template, redirect, url_for
 from flask_cors import CORS
-import requests
 from wikidataConnection import get_country_info, get_question_pair
-from handleUsers import create_user, user_exists
+from handleUsers import create_user, user_exists, user_has_savefile
 import DatabaseConnector
 import json
 
@@ -48,16 +47,18 @@ def start_menu():
 
 @app.route('/main-menu')
 def main_menu():
-    # TODO: tell the template if the user has a save file.
-    #  If the save file doesn't exist, the template should
-    #  disable the "Load game" button
     username = session.get("username")
     if not username:
         return redirect(url_for("start_menu"))
+
+    has_savefile = user_has_savefile(username)
+
     return render_template(
         "main-menu.html",
-        username=username
+        username=username,
+        has_savefile=has_savefile
     )
+
 
 @app.route('/create-profile', methods=['GET', 'POST'])
 def create_profile():

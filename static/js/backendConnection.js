@@ -95,5 +95,7 @@ export async function loginUser(event) {
   localStorage.setItem('username', username);
   console.log(localStorage.getItem('username'));
 
-  // window.location.href = "{{ url_for('main-menu') }}";
 }
+
+
+
