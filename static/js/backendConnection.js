@@ -35,7 +35,9 @@ export async function fetchCountryData(country) {
   <p id="incorrectAnswer" class="orange-text">Wrong answer!<br>You lost 1 life</p>
  
   <button id="close-btn" style="margin-top: 10px; display: none;">Continue</button>
-  <button id="gameOver-btn" style="margin-top: 10px; display: none;">Back to Main Menu</button>
+  <a href="${SCRIPT_ROOT}/main-menu" id="gameOver-btn" class="game-button" style="margin-top: 10px; display: none;">
+    Back to Main Menu
+  </a>
 `;
 
   document.getElementById('center-box').style.display = 'block';

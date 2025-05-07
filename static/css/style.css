@@ -318,11 +318,7 @@ canvas {
     z-index: 10;
 }
 
-#quit-btn {
-    position: absolute;
-    bottom: 15px;
-    left: 50%;
-    transform: translateX(-50%);
+.game-button {
     padding: 12px 20px;
     font-size: 16px;
     font-weight: bold;
@@ -330,6 +326,13 @@ canvas {
     transition: background-color 0.3s ease;
     background-color: var(--light-purple);
     border-radius: 3px;
+}
+
+#quit-btn {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 #leaderboard-back-button, #hide-instructions {
