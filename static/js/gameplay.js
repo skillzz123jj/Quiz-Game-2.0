@@ -1,22 +1,25 @@
 'use strict';
 
-import { dx, dy, handleKeyDown, handleKeyUp } from "./inputs.js";
-import { fetchCountryData } from "./backendConnection.js"
+import {dx, dy, handleKeyDown, handleKeyUp} from './inputs.js';
+import {fetchCountryData} from './backendConnection.js';
 
-window.addEventListener("keydown", handleKeyDown);
-window.addEventListener("keyup", handleKeyUp);
+window.addEventListener('keydown', handleKeyDown);
+window.addEventListener('keyup', handleKeyUp);
 
-const canvas = document.getElementById("gamecanvas");
-const ctx = canvas.getContext("2d");
+const canvas = document.getElementById('gamecanvas');
+const ctx = canvas.getContext('2d');
 
 //Initializes the plane canvases
 const playerHorizontal = new Image();
 const playerVerticalUp = new Image();
 const playerVerticalDown = new Image();
 
-playerHorizontal.src = `${SCRIPT_ROOT}/static/img/airplane-sprite2.png`;;
-playerVerticalUp.src = `${SCRIPT_ROOT}/static/img/airplane-sprite2-up.png`;;
-playerVerticalDown.src = `${SCRIPT_ROOT}/static/img/airplane-sprite2-down.png`;;
+playerHorizontal.src = `${SCRIPT_ROOT}/static/img/airplane-sprite2.png`;
+
+playerVerticalUp.src = `${SCRIPT_ROOT}/static/img/airplane-sprite2-up.png`;
+
+playerVerticalDown.src = `${SCRIPT_ROOT}/static/img/airplane-sprite2-down.png`;
+
 
 const spriteWidth = 54;
 const spriteHeight = 54;
@@ -33,18 +36,17 @@ function drawPlayer() {
   if (flipHorizontal) {
     ctx.scale(-1, 1);
     ctx.drawImage(
-      currentSprite,
-      -playerX - spriteWidth,
-      playerY,
-      spriteWidth,
-      spriteHeight
+        currentSprite,
+        -playerX - spriteWidth,
+        playerY,
+        spriteWidth,
+        spriteHeight,
     );
   } else {
     ctx.drawImage(currentSprite, playerX, playerY, spriteWidth, spriteHeight);
   }
   ctx.restore();
 }
-
 
 function updateDirection() {
   if (dy < 0) {
@@ -68,12 +70,13 @@ function getCanvasRelativePosition(dotElement, canvas) {
 
   return {
     x: dotRect.left - canvasRect.left + dotRect.width / 2,
-    y: dotRect.top - canvasRect.top + dotRect.height / 2
+    y: dotRect.top - canvasRect.top + dotRect.height / 2,
   };
 }
 
 //Checks if player is colliding with any of the dots
-function isPlayerCollidingWithDot(dotElement, canvas, playerX, playerY, spriteWidth, spriteHeight) {
+function isPlayerCollidingWithDot(
+    dotElement, canvas, playerX, playerY, spriteWidth, spriteHeight) {
   const dotPos = getCanvasRelativePosition(dotElement, canvas);
   const playerCenterX = playerX + spriteWidth / 2;
   const playerCenterY = playerY + spriteHeight / 2;
@@ -86,19 +89,20 @@ function isPlayerCollidingWithDot(dotElement, canvas, playerX, playerY, spriteWi
 
   return distance < collisionThreshold;
 }
-  let foundCollidingDot = null;
+
+let foundCollidingDot = null;
 
 //Updates the game every frame so that sprites are updated and collisions checked
-function updateGame()
-{
+function updateGame() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   updateDirection();
   drawPlayer();
   const allDots = document.querySelectorAll('.country-dot');
 
-   for (const dot of allDots) {
-     if (dot.classList.contains('collected')) continue;
-    if (isPlayerCollidingWithDot(dot, canvas, playerX, playerY, spriteWidth, spriteHeight)) {
+  for (const dot of allDots) {
+    if (dot.classList.contains('collected')) continue;
+    if (isPlayerCollidingWithDot(dot, canvas, playerX, playerY, spriteWidth,
+        spriteHeight)) {
       foundCollidingDot = dot;
       break;
     }
@@ -114,11 +118,12 @@ function updateGame()
 
   requestAnimationFrame(updateGame);
 }
+
 //Checks if player has chosen a country
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Enter' && foundCollidingDot) {
     console.log(`You selected ${foundCollidingDot.title}`);
-    fetchCountryData(foundCollidingDot.title)
+    fetchCountryData(foundCollidingDot.title);
     foundCollidingDot.style.backgroundColor = 'green';
     foundCollidingDot.classList.add('collected');
     foundCollidingDot = null;

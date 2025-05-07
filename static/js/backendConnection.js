@@ -1,25 +1,27 @@
 'use strict';
 
-import { handleAnswer } from './gameState.js';
+import {handleAnswer} from './gameState.js';
 
 // Creates a call to backend python via Flask
 export async function fetchCountryData(country) {
   const response = await fetch(
-    `${SCRIPT_ROOT}/api/country?name=${encodeURIComponent(country)}`
+      `${SCRIPT_ROOT}/api/country?name=${encodeURIComponent(country)}`,
   );
 
   if (!response.ok) {
-    console.error("Failed to fetch data from the backend.");
-    document.getElementById('country-data').innerHTML = "<p>Error loading data.</p>";
+    console.error('Failed to fetch data from the backend.');
+    document.getElementById(
+        'country-data').innerHTML = '<p>Error loading data.</p>';
     return;
   }
 
   const data = await response.json();
-  console.log("Backend response:", data);
+  console.log('Backend response:', data);
 
   const box = document.getElementById('country-data');
 
-  const answers = [data.correct, data.incorrect].sort(() => Math.random() - 0.5);
+  const answers = [data.correct, data.incorrect].sort(
+      () => Math.random() - 0.5);
 
   box.innerHTML = `
   ${data.correct.country}<br>
@@ -46,50 +48,51 @@ export async function fetchCountryData(country) {
   });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  const createButton = document.getElementById("authentication-form");
-  const loginForm = document.getElementById("authentication-form"); // Get the form element
+document.addEventListener('DOMContentLoaded', () => {
+  const createButton = document.getElementById('authentication-form');
+  const loginForm = document.getElementById('authentication-form'); // Get the form element
 
-  createButton.addEventListener("submit", createUser);
-  loginForm.addEventListener("submit", loginUser);
+  createButton.addEventListener('submit', createUser);
+  loginForm.addEventListener('submit', loginUser);
 });
 
 export async function createUser() {
-  const input = document.getElementById("username-input");
+  const input = document.getElementById('username-input');
   const username = input.value.trim();
 
   if (!username) {
-    alert("Please enter a username.");
+    alert('Please enter a username.');
     return;
   }
 
   try {
-    const response = await fetch(`{{ url_for('createUser') }}?name=${encodeURIComponent(username)}`);
+    const response = await fetch(
+        `{{ url_for('createUser') }}?name=${encodeURIComponent(username)}`);
 
     if (!response.ok) {
-      console.error("Failed to fetch data from the backend.");
+      console.error('Failed to fetch data from the backend.');
       return;
     }
-    localStorage.setItem("username", username);
-    console.log(localStorage.getItem("username"));
-    window.location.href = "{{ url_for('main-menu') }}";
+    localStorage.setItem('username', username);
+    console.log(localStorage.getItem('username'));
+    window.location.href = '{{ url_for(\'main-menu\') }}';
   } catch (error) {
-    console.error("Error communicating with the backend:", error);
+    console.error('Error communicating with the backend:', error);
   }
 }
 
 export async function loginUser(event) {
 
-  const input = document.getElementById("username-input");
+  const input = document.getElementById('username-input');
   const username = input.value.trim();
 
   if (!username) {
-    alert("Please enter a username.");
+    alert('Please enter a username.');
     return;
   }
 
-  localStorage.setItem("username", username);
-  console.log(localStorage.getItem("username"));
+  localStorage.setItem('username', username);
+  console.log(localStorage.getItem('username'));
 
- // window.location.href = "{{ url_for('main-menu') }}";
+  // window.location.href = "{{ url_for('main-menu') }}";
 }
