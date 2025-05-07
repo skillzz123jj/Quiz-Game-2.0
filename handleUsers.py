@@ -35,10 +35,11 @@ def create_user(username):
         print("No user_id found, skipping savefile.")
 
 
-def login_user(username):
-    query = "SELECT user_id, username FROM users WHERE username = %s"
+def user_exists(username):
+    query = "SELECT user_id FROM users WHERE username = %s"
     params = (username,)  #Adding parameters this way makes sure that querys are safe
-    DatabaseConnector.execute_query(DatabaseConnector.connection, query, params)
+    result = DatabaseConnector.fetch_one(DatabaseConnector.connection, query, params)
+    return result is not None
 
 
 def create_savefile(user_id):

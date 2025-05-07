@@ -195,6 +195,10 @@ a:link {
     background-color: var(--darkmode-dark);
 }
 
+.error {
+    color: var(--light-font);
+}
+
 a.disabled {
     pointer-events: none;
     opacity: 10%;

@@ -20,6 +20,9 @@
     </header>
     <h1>Log in</h1>
     <h2 class="orange-text">Write your username</h2>
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
     <form method="POST" id="authentication-form">
         <input type="text" name="username" id="username-input" placeholder="username">
         <input type="submit" id="login-user-btn" value="Ok" class="menu-link menu-link-small">

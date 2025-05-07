@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify, session, render_template, redirect, u
 from flask_cors import CORS
 import requests
 from wikidataConnection import get_country_info, get_question_pair
-from handleUsers import create_user, login_user
+from handleUsers import create_user, user_exists
 import DatabaseConnector
 import json
 
@@ -75,9 +75,12 @@ def create_profile():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        # TODO: handle errors, and show them to the user
-        username = request.form["username"]
-        login_user(username)
+        username = request.form.get("username")
+        if not username:
+            return render_template("login.html", error="Username is required"), 401
+        if not user_exists(username):
+            return render_template("login.html", error="Invalid username"), 403
+
         session["username"] = username
         return redirect(url_for("main_menu"))
     return render_template("login.html")
