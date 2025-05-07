@@ -24,15 +24,15 @@ export async function fetchCountryData(country) {
       () => Math.random() - 0.5);
 
   box.innerHTML = `
-  <p class="white-text">${data.correct.country}</p>
-  <p>What is the capital?</p>
+  <h2 class="white-text" id="country-name">${data.correct.country}</h2>
+  <p id="country-question">What is the capital?</p>
   <ul>
     ${answers.map((ans, i) => `
       <li><button id="answer${i + 1}" type="button">${ans.result}</button></li>
     `).join('')}
   </ul>
-  <p id="correctAnswer" class="orange-text">Correct answer!</p>
-  <p id="incorrectAnswer" class="orange-text">Wrong answer!<br>You lost 1 life</p>
+  <h3 id="correctAnswer" class="orange-text">Correct answer!</h3>
+  <h3 id="incorrectAnswer" class="orange-text">Wrong answer!<br>You lost 1 life</h3>
  
   <button id="close-btn" style="margin-top: 10px; display: none;">Continue</button>
   <a href="${SCRIPT_ROOT}/main-menu" id="gameOver-btn" class="game-button" style="margin-top: 10px; display: none;">

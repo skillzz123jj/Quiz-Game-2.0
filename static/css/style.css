@@ -40,6 +40,16 @@ h2 {
     font-family: "Behavior";
 }
 
+#country-name {
+    text-align: center;
+    padding: 1rem 1rem 0.5rem 1rem;
+    font-family: "Roboto", sans-serif;
+}
+
+#country-question {
+    padding: 0 1rem 0.5rem 1rem;
+}
+
 body {
     background-color: var(--darkmode-light);
     margin: 1rem;
@@ -348,9 +358,11 @@ canvas {
 
 #correctAnswer {
     display: none;
+    padding: 0.5rem;
 }
 
 #incorrectAnswer {
     display: none;
+    padding: 0.5rem;
 }
 
