@@ -19,6 +19,9 @@
     </header>
     <h1>Create profile</h1>
     <h2 class="orange-text">Write your username</h2>
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
     <form method="POST" id="authentication-form">
         <input type="text" name="username" id="username-input" placeholder="username">
         <input type="submit" id="create-user-btn" value="Ok" class="menu-link menu-link-small">

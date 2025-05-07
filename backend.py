@@ -64,8 +64,14 @@ def create_profile():
     if request.method == 'POST':
         username = request.form["username"]
         if not username:
-            # TODO: show an error to the user
-            return render_template("create-profile.html")
+            return render_template(
+                "create-profile.html", error="Username is required"
+            ), 401
+        if user_exists(username):
+            return render_template(
+                "create-profile.html", error="Username has already been taken"
+            ), 403
+
         create_user(username)
         session["username"] = username
         return redirect(url_for("main_menu"))
