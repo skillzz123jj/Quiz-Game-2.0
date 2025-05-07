@@ -18,10 +18,13 @@
     <script type="module" src="{{ url_for('static', filename='js/gameplay.js') }}"></script>
     <script type="module" src="{{ url_for('static', filename='js/gameState.js') }}"></script>
     <script type="module" src="{{ url_for('static', filename='js/instructions.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='js/loadingScreen.js') }}"></script>
 </head>
 <body id="game-body">
 
-<main id="map">
+{% include "loading-screen.html" %}
+
+<main id="map" class="hidden">
     <!-- Holds the UI components -->
     <div id="healthbar-container">
     <img id="life-1" src="{{ url_for('static', filename='img/life.png') }}" class="icons" alt="Image of a heart"/>
@@ -46,7 +49,9 @@
         <section id="country-data"></section>
     </article>
 </main>
-<a href="{{ url_for('main_menu') }}" id="quit-btn" class="game-button">Quit Game</a>
+<a href="{{ url_for('main_menu') }}" id="quit-btn" class="game-button hidden">
+    Quit Game
+</a>
 
 {% include "instructions.html" %}
 

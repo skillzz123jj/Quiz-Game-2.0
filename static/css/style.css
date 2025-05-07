@@ -204,6 +204,10 @@ a.disabled {
     opacity: 10%;
 }
 
+.hidden {
+    display: none;
+}
+
 /*Gameplay CSS*/
 
 #gamecanvas {
@@ -215,7 +219,6 @@ a.disabled {
 #game-html, #game-body {
     height: 100%;
     margin: 0;
-    padding-left: 4%;
     justify-content: center;
     align-items: center;
     background-color: var(--background-color)
@@ -225,9 +228,13 @@ a.disabled {
     width: 90%;
     height: 90%;
     position: relative;
-    display: flex;
+    margin-left: 5%;
     justify-content: center;
     align-items: center;
+}
+
+#map:not(.hidden) {
+    display: flex;
 }
 
 canvas {
