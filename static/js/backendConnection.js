@@ -28,11 +28,11 @@ export async function fetchCountryData(country) {
   <p id="country-question">What is the capital?</p>
   <ul id="answer-list">
     ${answers.map((ans, i) => `
-      <li><button id="answer${i + 1}" type="button">${ans.result}</button></li>
+      <li><button id="answer${i + 1}" class="answer-button" type="button">${ans.result}</button></li>
     `).join('')}
   </ul>
-  <h3 id="correctAnswer" class="orange-text">Correct answer!</h3>
-  <h3 id="incorrectAnswer" class="orange-text">Wrong answer!<br>You lost 1 life</h3>
+  <h3 id="correct-answer-text" class="orange-text">Correct answer!</h3>
+  <h3 id="incorrect-answer-text" class="orange-text">Wrong answer!<br>You lost 1 life</h3>
  
   <button id="close-btn" style="margin-top: 10px; display: none;">Continue</button>
   <a href="${SCRIPT_ROOT}/main-menu" id="gameOver-btn" class="game-button" style="margin-top: 10px; display: none;">

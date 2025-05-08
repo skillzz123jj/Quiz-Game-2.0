@@ -170,6 +170,10 @@ header {
 	row-gap: .5rem;
 }
 
+.answer-button {
+    color: var(--dark-font);
+}
+
 #authentication-form {
     display: flex;
     flex-direction: column;
@@ -377,12 +381,12 @@ canvas {
     padding: 0 3rem;
 }
 
-#correctAnswer {
+#correct-answer-text {
     display: none;
     padding: 0.5rem;
 }
 
-#incorrectAnswer {
+#incorrect-answer-text {
     display: none;
     padding: 0.5rem;
 }

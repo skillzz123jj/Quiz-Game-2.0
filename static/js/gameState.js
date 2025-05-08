@@ -16,20 +16,23 @@ export function handleAnswer(isCorrect, clickedButton, country) {
   btn1.classList.add("disabled");
   btn2.classList.add("disabled");
 
+  const selectedAnswer = document.getElementById(
+      `answer${clickedButton}`
+  );
+  const otherAnswer = document.getElementById(
+      `answer${3 - clickedButton}`
+  );
+  otherAnswer.style.opacity = '30%';
   if (isCorrect) {
-    document.getElementById(
-        `answer${clickedButton}`).style.backgroundColor = 'var(--green)';
-    document.getElementById(
-        `answer${3 - clickedButton}`).style.backgroundColor = 'var(--red)';
-    document.getElementById('correctAnswer').style.display = 'block';
+    selectedAnswer.style.backgroundColor = 'var(--green)';
+    otherAnswer.style.backgroundColor = 'var(--red)';
+    document.getElementById('correct-answer-text').style.display = 'block';
     updateDatabase(100, country);
   } else {
-    document.getElementById(
-        `answer${clickedButton}`).style.backgroundColor = 'var(--red)';
-    document.getElementById(
-        `answer${3 - clickedButton}`).style.backgroundColor = 'var(--green)';
+    selectedAnswer.style.backgroundColor = 'var(--red)';
+    otherAnswer.style.backgroundColor = 'var(--green)';
     checkLives();
-    document.getElementById('incorrectAnswer').style.display = 'block';
+    document.getElementById('incorrect-answer-text').style.display = 'block';
   }
 
   const closeBtn = document.getElementById('close-btn');
@@ -93,7 +96,7 @@ function endGame() {
     })
     .catch((err) => console.error('Failed to end game:', err));
 
-  document.getElementById('incorrectAnswer').textContent = 'Game over';
+  document.getElementById('incorrect-answer-text').textContent = 'Game over';
   document.getElementById('close-btn').style.display = 'none';
   document.getElementById('gameOver-btn').style.display = 'block';
 }
