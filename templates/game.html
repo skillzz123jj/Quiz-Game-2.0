@@ -11,11 +11,11 @@
     <script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
     <link href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" rel="stylesheet"/>
     <script>
-        // https://flask.palletsprojects.com/en/stable/patterns/javascript/#generating-urls
-        const SCRIPT_ROOT = {{ request.script_root|tojson }};
+      // https://flask.palletsprojects.com/en/stable/patterns/javascript/#generating-urls
+      const SCRIPT_ROOT = {{ request.script_root | tojson }};
     </script>
     <script>
-        const GAME_STATE = {{ game_state | tojson | safe }};
+      const GAME_STATE = {{ game_state | tojson | safe }};
     </script>
 
 
@@ -32,16 +32,17 @@
 <main id="map" class="hidden">
     <!-- Holds the UI components -->
     <div id="healthbar-container">
-    <img id="life-1" src="{{ url_for('static', filename='img/life.png') }}" class="icons" alt="Image of a heart"/>
-    <img id="life-2" src="{{ url_for('static', filename='img/life.png') }}" class="icons" alt="Image of a heart"/>
-    <img id="life-3" src="{{ url_for('static', filename='img/life.png') }}" class="icons" alt="Image of a heart"/>
-</div>
+        <img id="life-1" src="{{ url_for('static', filename='img/life.png') }}" class="icons" alt="Image of a heart"/>
+        <img id="life-2" src="{{ url_for('static', filename='img/life.png') }}" class="icons" alt="Image of a heart"/>
+        <img id="life-3" src="{{ url_for('static', filename='img/life.png') }}" class="icons" alt="Image of a heart"/>
+    </div>
 
 
     <div id="instructions-container">
         <a href="#" id="show-instructions">
-            <img href="#" id="question-mark-icon" src="{{ url_for('static', filename='img/question-mark.png') }}" class="icons"
-             alt="Image for the instructions"/>
+            <img href="#" id="question-mark-icon" src="{{ url_for('static', filename='img/question-mark.png') }}"
+                 class="icons"
+                 alt="Image for the instructions"/>
         </a>
     </div>
 
