@@ -23,7 +23,7 @@ def country_info():
         return jsonify({'error': 'Missing parameters'}), 400
 
     try:
-        result = get_question_pair(country_name, 'capital')
+        result = get_question_pair(country_name)
         if not result:
             return jsonify({'error': 'No data found for the specified country'}), 404
         return jsonify(result)
