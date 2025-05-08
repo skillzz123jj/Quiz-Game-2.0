@@ -141,6 +141,12 @@ header {
     font-size: 0.8rem;
 }
 
+#country-data {
+	display: flex;
+	flex-direction: column;
+	row-gap: .5rem;
+}
+
 #country-data ul li {
     display: flex;
     align-items: stretch;
@@ -156,6 +162,12 @@ header {
 #country-data ul li button:hover, #close-btn:hover {
     box-shadow: 0 0 15px var(--light-orange);
     cursor: pointer;
+}
+
+#answer-list {
+	display: flex;
+	flex-direction: column;
+	row-gap: .5rem;
 }
 
 #authentication-form {

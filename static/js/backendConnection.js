@@ -26,7 +26,7 @@ export async function fetchCountryData(country) {
   box.innerHTML = `
   <h2 class="white-text" id="country-name">${data.correct.country}</h2>
   <p id="country-question">What is the capital?</p>
-  <ul>
+  <ul id="answer-list">
     ${answers.map((ans, i) => `
       <li><button id="answer${i + 1}" type="button">${ans.result}</button></li>
     `).join('')}
