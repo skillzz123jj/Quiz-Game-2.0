@@ -7,6 +7,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+function focusGameMap() {
+  /* Focus the game map, so that it's possible to move on the map. */
+  document.querySelector('.maplibregl-canvas').focus();
+}
 
 export function handleAnswer(isCorrect, clickedButton, country) {
   const btn1 = document.getElementById('answer1');
@@ -39,6 +43,7 @@ export function handleAnswer(isCorrect, clickedButton, country) {
   closeBtn.style.display = 'inline-block';
   closeBtn.addEventListener('click', () => {
     document.getElementById('center-box').style.display = 'none';
+    focusGameMap();
   }, {once: true});
 }
 
