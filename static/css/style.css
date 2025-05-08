@@ -40,6 +40,12 @@ h2 {
     font-family: "Behavior";
 }
 
+hr {
+  margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  border: none;
+}
+
 #country-name {
     text-align: center;
     padding: 1rem 1rem 0.5rem 1rem;
