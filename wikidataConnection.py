@@ -12,8 +12,8 @@ info_type_mapping = {
     'P36': 'What is the capital?',
     'P38': 'What is the currency?',
     'P37': 'What is the official language?',
-    'P1056': 'What is the national animal?',
-    'P1451': 'What is the national anthem?',
+    #'P1056': 'What is the national animal?',
+   # 'P1451': 'What is the national anthem?',
 
 }
 

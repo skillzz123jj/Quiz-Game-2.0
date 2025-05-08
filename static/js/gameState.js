@@ -12,7 +12,7 @@ function focusGameMap() {
   document.querySelector('.maplibregl-canvas').focus();
 }
 
-export function handleAnswer(isCorrect, clickedButton, country) {
+export function handleAnswer(isCorrect, clickedButton, country, timeRemanining) {
   const btn1 = document.getElementById('answer1');
   const btn2 = document.getElementById('answer2');
   btn1.disabled = true;
@@ -31,7 +31,7 @@ export function handleAnswer(isCorrect, clickedButton, country) {
     selectedAnswer.style.backgroundColor = 'var(--green)';
     otherAnswer.style.backgroundColor = 'var(--red)';
     document.getElementById('correct-answer-text').style.display = 'block';
-    updateDatabase(100, country);
+    updateDatabase(countScore(timeRemanining), country);
   } else {
     selectedAnswer.style.backgroundColor = 'var(--red)';
     otherAnswer.style.backgroundColor = 'var(--green)';
@@ -45,6 +45,14 @@ export function handleAnswer(isCorrect, clickedButton, country) {
     document.getElementById('center-box').style.display = 'none';
     focusGameMap();
   }, {once: true});
+}
+
+function countScore(timeRemaining){
+  const maxTime = 30;
+const maxScore = 300;
+const minScore = 100;
+const score = Math.round(minScore + ((timeRemaining / maxTime) * (maxScore - minScore)));
+return score;
 }
 
 async function checkLives() {
