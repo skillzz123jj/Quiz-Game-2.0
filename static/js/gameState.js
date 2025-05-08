@@ -13,6 +13,8 @@ export function handleAnswer(isCorrect, clickedButton, country) {
   const btn2 = document.getElementById('answer2');
   btn1.disabled = true;
   btn2.disabled = true;
+  btn1.classList.add("disabled");
+  btn2.classList.add("disabled");
 
   if (isCorrect) {
     document.getElementById(
