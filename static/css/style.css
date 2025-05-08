@@ -8,10 +8,6 @@
     --transparent-gray: rgba(220, 220, 245, 0.5);
     --green: #01ff04;
     --red: #ff0000ff;
-
-    --darkmode-dark: #1f1f1f;
-    --darkmode-light: #f4f4f4;
-
     --background-color: #2f2f3d;
     --white: #ffff;
 }
@@ -57,7 +53,7 @@ hr {
 }
 
 body {
-    background-color: var(--darkmode-light);
+    background-color: var(--light-font);
     margin: 1rem;
 }
 
@@ -221,10 +217,6 @@ a:link {
 
 #instructions-text {
     padding: 0.5rem 0 0.7rem 0;
-}
-
-.dark-mode {
-    background-color: var(--darkmode-dark);
 }
 
 .error {
