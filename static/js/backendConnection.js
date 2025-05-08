@@ -49,14 +49,6 @@ export async function fetchCountryData(country) {
   });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  const createButton = document.getElementById('authentication-form');
-  const loginForm = document.getElementById('authentication-form'); // Get the form element
-
-  createButton.addEventListener('submit', createUser);
-  loginForm.addEventListener('submit', loginUser);
-});
-
 export async function createUser() {
   const input = document.getElementById('username-input');
   const username = input.value.trim();
