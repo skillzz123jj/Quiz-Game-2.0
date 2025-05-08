@@ -24,10 +24,10 @@
 
     <nav>
         <ul id="links">
-            <li><a href="{{ url_for('game') }}" class="menu-link">New game</a></li>
+            <li><a href="{{ url_for('game', action='new') }}" class="menu-link">New game</a></li>
             <li>
                 {% if has_savefile %}
-                <a href="{{ url_for('game') }}" class="menu-link">Load game</a>
+                <a href="{{ url_for('game', action='load')}}" class="menu-link">Load game</a>
                 {% else %}
                 <a href="#" class="menu-link disabled" onclick="return false;" aria-disabled="true">Load game</a>
                 {% endif %}

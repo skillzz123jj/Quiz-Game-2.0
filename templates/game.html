@@ -14,6 +14,11 @@
         // https://flask.palletsprojects.com/en/stable/patterns/javascript/#generating-urls
         const SCRIPT_ROOT = {{ request.script_root|tojson }};
     </script>
+    <script>
+        const GAME_STATE = {{ game_state | tojson | safe }};
+    </script>
+
+
     <script type="module" src="{{ url_for('static', filename='js/map.js') }}"></script>
     <script type="module" src="{{ url_for('static', filename='js/gameplay.js') }}"></script>
     <script type="module" src="{{ url_for('static', filename='js/gameState.js') }}"></script>

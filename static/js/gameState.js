@@ -1,5 +1,13 @@
 'use strict';
 
+document.addEventListener("DOMContentLoaded", () => {
+  if (typeof GAME_STATE !== "undefined") {
+    updateScoreUI(GAME_STATE.score);
+    updateHeartsDisplay(GAME_STATE.lives);
+  }
+});
+
+
 export function handleAnswer(isCorrect, clickedButton, country) {
   const btn1 = document.getElementById('answer1');
   const btn2 = document.getElementById('answer2');
@@ -30,9 +38,7 @@ export function handleAnswer(isCorrect, clickedButton, country) {
 }
 
 async function checkLives() {
-  const response = await fetch(
-      `${SCRIPT_ROOT}/fetchLives`,
-  );
+  const response = await fetch(`${SCRIPT_ROOT}/fetchLives`);
 
   if (!response.ok) {
     console.error('Failed to fetch data from the backend.');
@@ -52,23 +58,44 @@ async function checkLives() {
     console.error('No lives data found.');
     return;
   }
+
   lives--;
-  updateLives(lives);
-  updateHeartsDisplay(lives);
 
   if (lives <= 0) {
+    await updateLives(lives);
+    updateHeartsDisplay(lives);
     endGame();
+  } else {
+    await updateLives(lives);
+    updateHeartsDisplay(lives);
   }
-
-  console.log('Current lives:', lives);
 
 }
 
+
+
 function endGame() {
+  const finalScoreText = document.getElementById('score-container').querySelector('p').textContent;
+  const finalScore = parseInt(finalScoreText) || 0;
+  
+  fetch(`${SCRIPT_ROOT}/endGame`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ score: finalScore }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log('Game end response:', data);
+    })
+    .catch((err) => console.error('Failed to end game:', err));
+
   document.getElementById('incorrectAnswer').textContent = 'Game over';
   document.getElementById('close-btn').style.display = 'none';
   document.getElementById('gameOver-btn').style.display = 'block';
 }
+
 
 async function updateLives(newLives) {
   const response = await fetch(`${SCRIPT_ROOT}/updateLives`, {
@@ -111,6 +138,11 @@ function updateDatabase(addedScore, newCountry = null) {
 
   scoreElement.textContent = `${newScore} points`;
   updateScoreAndCountryDatabase(newScore, newCountry);
+}
+
+function updateScoreUI(score) {
+  const scoreEl = document.getElementById("score-container").querySelector("p");
+  scoreEl.textContent = `${score} points`;
 }
 
 async function updateScoreAndCountryDatabase(newScore, newCountry = null) {

@@ -1,4 +1,5 @@
 import DatabaseConnector
+import json
 
 #Creates a users table in the database if it doesn't exist
 def create_users_table():
@@ -11,6 +12,42 @@ def create_users_table():
     """
     DatabaseConnector.execute_query(DatabaseConnector.connection, query)
 
+def create_scores_table():
+    query = """
+    CREATE TABLE IF NOT EXISTS completed_games (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        user_id INT NOT NULL,
+        final_score INT NOT NULL,
+        ended_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users(user_id)
+    );
+    """
+    DatabaseConnector.execute_query(DatabaseConnector.connection, query)
+
+
+def save_final_score_and_reset(user_id, final_score):
+    try:
+        create_scores_table()
+        insert_query = """
+        INSERT INTO completed_games (user_id, final_score)
+        VALUES (%s, %s)
+        """
+        DatabaseConnector.execute_query(DatabaseConnector.connection, insert_query, (user_id, final_score))
+
+        reset_query = """
+        UPDATE game_progress
+        SET game_state = '{"lives": 3, "score": 0, "countries": []}',
+        game_started = FALSE
+        WHERE user_id = %s
+        """
+        DatabaseConnector.execute_query(DatabaseConnector.connection, reset_query, (user_id,))
+
+        print(f"Final score saved and progress reset for user_id: {user_id}")
+        return True
+
+    except Exception as e:
+        print(f"Error in save_final_score_and_reset: {e}")
+        return False
 
 def create_user(username):
     create_users_table()
@@ -36,6 +73,7 @@ def create_user(username):
 
 
 def user_exists(username):
+    create_users_table()
     query = "SELECT user_id FROM users WHERE username = %s"
     params = (username,)  #Adding parameters this way makes sure that querys are safe
     result = DatabaseConnector.fetch_one(DatabaseConnector.connection, query, params)
@@ -76,13 +114,17 @@ def check_game_progress(user_id):
         result = DatabaseConnector.fetch_one(DatabaseConnector.connection, query, params)
 
         if result:
-            return result[0]  # or just `result` depending on the fetch method's return format
+            data = result[0]
+            if isinstance(data, bytes):
+                data = data.decode('utf-8')
+            return json.loads(data)
         else:
             print("No active game found or game not started.")
             return None
     except Exception as e:
         print(f"Error checking game progress: {e}")
         return None
+
 
 def user_has_savefile(username):
     try:
@@ -100,8 +142,29 @@ def user_has_savefile(username):
         print(f"Error in user_has_savefile: {e}")
         return False
 
+def reset_game_progress(user_id):
+    try:
+        query = """
+        INSERT INTO game_progress (user_id, game_state, game_started)
+        VALUES (%s, '{"lives": 3, "score": 0, "countries": []}', TRUE)
+        ON DUPLICATE KEY UPDATE
+            game_state = VALUES(game_state),
+            game_started = VALUES(game_started),
+            last_updated = CURRENT_TIMESTAMP;
+        """
+        params = (user_id,)
+        DatabaseConnector.execute_query(DatabaseConnector.connection, query, params)
+        print(f"Game progress for user_id {user_id} has been reset or inserted.")
+    except Exception as e:
+        print(f"Error resetting game progress: {e}")
 
 
+
+def get_user_id(username):
+    query = "SELECT user_id FROM users WHERE username = %s"
+    params = (username,)
+    result = DatabaseConnector.fetch_one(DatabaseConnector.connection, query, params)
+    return result[0] if result else None
 
 
 

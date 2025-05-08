@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, session, render_template, redirect, url_for
 from flask_cors import CORS
 from wikidataConnection import get_country_info, get_question_pair
-from handleUsers import create_user, user_exists, user_has_savefile
+from handleUsers import create_user, user_exists, user_has_savefile, reset_game_progress, get_user_id, check_game_progress, save_final_score_and_reset
 import DatabaseConnector
 import json
 
@@ -104,13 +104,31 @@ def leaderboard():
         username=session.get("username")
     )
 
+
 @app.route('/game')
 def game():
     if not session.get("username"):
         return redirect(url_for("start_menu"))
-    # TODO: create a save file, possibly overwriting
-    #  the existing save file
-    return render_template("game.html")
+
+    action = request.args.get("action")
+    username = session.get("username")
+
+    user_id = get_user_id(username)  # Make sure this fetches valid ID
+
+    if action == "new":
+        reset_game_progress(user_id)
+    elif action == "load":
+        pass  # just load existing game
+
+    # Always get the current state
+    game_state = check_game_progress(user_id)
+
+    if not game_state:
+        game_state = {"lives": 3, "score": 0, "countries": []}  # fallback to default
+
+    return render_template("game.html", game_state=game_state)
+
+
 
 @app.route('/fetchLives')
 def interact_lives():
@@ -223,6 +241,31 @@ def update_score_and_countries():
         return jsonify({'message': 'Score and country updated successfully'})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
+@app.route('/endGame', methods=['POST'])
+def end_game():
+    try:
+        username = session.get('username')
+        if not username:
+            return jsonify({'error': 'User not logged in'}), 400
+
+        data = request.get_json()
+        final_score = data.get('score')
+
+        user_id = get_user_id(username)
+        if user_id is None or final_score is None:
+            return jsonify({'error': 'Missing user ID or score'}), 400
+
+        success = save_final_score_and_reset(user_id, final_score)
+        if not success:
+            return jsonify({'error': 'Could not save game data'}), 500
+
+        return jsonify({'message': 'Game ended and data saved'})
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
 
 
 if __name__ == '__main__':
