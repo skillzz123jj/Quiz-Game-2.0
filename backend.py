@@ -282,6 +282,25 @@ def get_leaderboard():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+@app.route('/get-countries')
+def completed_countries():
+    username = session.get("username")
+    if not username:
+        return jsonify({'error': 'User not logged in'}), 400
+    user_id = get_user_id(username)
+
+
+    game_query = "SELECT game_state FROM game_progress WHERE user_id = %s"
+    game_result = DatabaseConnector.execute_query(DatabaseConnector.connection, game_query, (user_id,))
+    if not game_result:
+        return jsonify({'error': 'No game progress found'}), 404
+
+    try:
+        game_state = json.loads(game_result[0][0])
+        countries = game_state.get('countries', [])
+        return jsonify({'countries': countries})
+    except json.JSONDecodeError:
+        return jsonify({'error': 'Invalid game state data'}), 500
 
 
 

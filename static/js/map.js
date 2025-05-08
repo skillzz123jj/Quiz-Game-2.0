@@ -20,6 +20,10 @@ map.on('load', () => {
 
 //Finds the location of each country and and adds a dot over it on the map
 export async function loadCountryGeoJSON(map) {
+  const completedRes = await fetch('/get-countries');
+  const completedData = await completedRes.json();
+  const completedCountries = completedData.countries || [];
+
   const res = await fetch('https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json');
   const geojson = await res.json();
 
@@ -33,6 +37,11 @@ export async function loadCountryGeoJSON(map) {
       const el = document.createElement('div');
         el.className = 'country-dot';
         el.title = name;
+
+        if (completedCountries.includes(name)) {
+        el.style.backgroundColor = 'green';
+        el.classList.add('collected');
+      }
 
       new maplibregl.Marker({element: el})
         .setLngLat([lon, lat])

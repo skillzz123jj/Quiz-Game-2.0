@@ -122,7 +122,6 @@ function updateGame() {
 //Checks if player has chosen a country
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Enter' && foundCollidingDot) {
-    console.log(`You selected ${foundCollidingDot.title}`);
     fetchCountryData(foundCollidingDot.title);
     foundCollidingDot.style.backgroundColor = 'green';
     foundCollidingDot.classList.add('collected');
