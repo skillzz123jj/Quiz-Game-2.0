@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <title>Leaderboard</title>
-    <script src="{{ url_for('static', filename='js/scripts.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='js/instructions.js') }}" defer></script>
+    <script>const SCRIPT_ROOT = "{{ request.script_root }}";</script>
+    <script src="{{ url_for('static', filename='js/leaderboard.js') }}" defer></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,33 +13,25 @@
           rel="stylesheet">
 </head>
 
-<main class="menu-content">
-    <header>
-        <img id="logo" src="{{ url_for('static', filename='img/transparent-logo.png') }}" alt="logo">
-        <h1>Quiz game</h1>
-        <h2 class="orange-text">Leaderboard</h2>
-    </header>
+<body>
+    <main class="menu-content">
+        <header>
+            <img id="logo" src="{{ url_for('static', filename='img/transparent-logo.png') }}" alt="logo">
+            <h1>Quiz game</h1>
+            <h2 class="orange-text">Leaderboard</h2>
+        </header>
 
-    <img id="trophy" src="{{ url_for('static', filename='img/podium-trophy-clipart-md.png') }}" alt="trophy-podium">
+        <img id="trophy" src="{{ url_for('static', filename='img/podium-trophy-clipart-md.png') }}" alt="trophy-podium">
 
-    <ol>
-        <li><span class="white-text">ykkonen</span> .............. <span class="white-text">pisteet</span></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-    </ol>
-    {% if username %}
-        <a href="{{ url_for('main_menu') }}" id="leaderboard-back-button" class="menu-link menu-link-small">Back</a>
-    {% else %}
-        <a href="{{ url_for('start_menu') }}" id="leaderboard-back-button" class="menu-link menu-link-small">Back</a>
-    {% endif %}
-</main>
+        <ol id="leaderboard-list">
+            <!-- Top 10 Scores will be populated here -->
+        </ol>
 
+        {% if username %}
+            <a href="{{ url_for('main_menu') }}" id="leaderboard-back-button" class="menu-link menu-link-small">Back</a>
+        {% else %}
+            <a href="{{ url_for('start_menu') }}" id="leaderboard-back-button" class="menu-link menu-link-small">Back</a>
+        {% endif %}
+    </main>
 </body>
 </html>

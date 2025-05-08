@@ -77,7 +77,7 @@ async function checkLives() {
 function endGame() {
   const finalScoreText = document.getElementById('score-container').querySelector('p').textContent;
   const finalScore = parseInt(finalScoreText) || 0;
-  
+
   fetch(`${SCRIPT_ROOT}/endGame`, {
     method: 'POST',
     headers: {

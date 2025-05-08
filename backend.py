@@ -265,6 +265,23 @@ def end_game():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+@app.route('/getLeaderboard', methods=['GET'])
+def get_leaderboard():
+    try:
+        query = """
+                   SELECT u.username, c.final_score AS top_score
+                   FROM completed_games c
+                   JOIN users u ON c.user_id = u.user_id
+                   ORDER BY c.final_score DESC
+                   LIMIT 10
+               """
+        results = DatabaseConnector.execute_query(DatabaseConnector.connection, query)
+
+        leaderboard = [{'username': row[0], 'score': row[1]} for row in results]
+        return jsonify(leaderboard)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 
 
 
