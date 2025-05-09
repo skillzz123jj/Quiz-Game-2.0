@@ -1,7 +1,9 @@
-import DatabaseConnector
 import json
+import DatabaseConnector
 
-#Creates a users table in the database if it doesn't exist
+
+#These are helper functions to run queries in MariaDB via backend.py
+
 def create_users_table():
     query = """
      CREATE TABLE IF NOT EXISTS users (
@@ -11,6 +13,7 @@ def create_users_table():
 );
     """
     DatabaseConnector.execute_query(DatabaseConnector.connection, query)
+
 
 def create_scores_table():
     query = """
@@ -49,6 +52,7 @@ def save_final_score_and_reset(user_id, final_score):
         print(f"Error in save_final_score_and_reset: {e}")
         return False
 
+
 def create_user(username):
     create_users_table()
 
@@ -75,7 +79,7 @@ def create_user(username):
 def user_exists(username):
     create_users_table()
     query = "SELECT user_id FROM users WHERE username = %s"
-    params = (username,)  #Adding parameters this way makes sure that querys are safe
+    params = (username,)  # Adding parameters this way makes sure that querys are safe
     result = DatabaseConnector.fetch_one(DatabaseConnector.connection, query, params)
     return result is not None
 
@@ -142,6 +146,7 @@ def user_has_savefile(username):
         print(f"Error in user_has_savefile: {e}")
         return False
 
+
 def reset_game_progress(user_id):
     try:
         query = """
@@ -159,7 +164,6 @@ def reset_game_progress(user_id):
         print(f"Error resetting game progress: {e}")
 
 
-
 def get_user_id(username):
     query = "SELECT user_id FROM users WHERE username = %s"
     params = (username,)
@@ -167,13 +171,45 @@ def get_user_id(username):
     return result[0] if result else None
 
 
+def update_game_progress(user_id, game_state):
+    try:
+        game_state_str = json.dumps(game_state)
+        query = """
+        UPDATE game_progress SET game_state = %s WHERE user_id = %s
+        """
+        params = (game_state_str, user_id)
+        DatabaseConnector.execute_query(DatabaseConnector.connection, query, params)
+    except Exception as e:
+        print(f"Error updating game progress: {e}")
 
 
+def get_leaderboard_data():
+    query = """
+    SELECT u.username, c.final_score AS top_score
+    FROM completed_games c
+    JOIN users u ON c.user_id = u.user_id
+    ORDER BY c.final_score DESC
+    LIMIT 10
+    """
+    results = DatabaseConnector.execute_query(DatabaseConnector.connection, query)
+    leaderboard = [{'username': row[0], 'score': row[1]} for row in results]
+    return leaderboard
 
 
+def get_game_state_for_user(user_id):
+    query = "SELECT game_state FROM game_progress WHERE user_id = %s"
+    result = DatabaseConnector.execute_query(DatabaseConnector.connection, query, (user_id,))
+    if not result:
+        raise ValueError('No game progress found')
+
+    try:
+        game_state = json.loads(result[0][0])
+        return game_state
+    except json.JSONDecodeError:
+        raise ValueError('Invalid game state data')
 
 
-
-
-
-
+def update_game_state(user_id, game_state):
+    new_state_str = json.dumps(game_state)
+    update_query = "UPDATE game_progress SET game_state = %s WHERE user_id = %s"
+    DatabaseConnector.execute_query(DatabaseConnector.connection, update_query, (new_state_str, user_id))

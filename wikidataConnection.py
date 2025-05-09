@@ -33,6 +33,7 @@ def build_query(country_name, property_id):
     LIMIT 1
     """
 
+#Sends the question to wikidata
 def execute_sparql_query(query):
     try:
         response = requests.get(WIKIDATA_URL, params={'query': query}, headers=HEADERS, timeout=10)
@@ -47,7 +48,7 @@ def execute_sparql_query(query):
         return []
 
 
-
+#Fetches the data for the chosen country
 def get_country_info(country_name, question_id):
     query = build_query(country_name, question_id)
     results = execute_sparql_query(query)
@@ -68,8 +69,8 @@ def get_country_info(country_name, question_id):
     return None
 
 
-
-def get_random_country_list(limit=500):
+#Selects up to 200 countries to choose the wrong answer from
+def get_random_country_list(limit=200):
     query = f"""
     SELECT ?countryLabel WHERE {{
       ?country wdt:P31 wd:Q6256.
@@ -80,13 +81,14 @@ def get_random_country_list(limit=500):
     results = execute_sparql_query(query)
     return [item['countryLabel']['value'] for item in results if 'countryLabel' in item]
 
+#Chooses the question by random and also the wrong country and its data
 def get_question_pair(target_country):
     max_question_attempts = 5  # prevent infinite loops
     for _ in range(max_question_attempts):
         question_id = random.choice(list(info_type_mapping.keys()))
         correct = get_country_info(target_country, question_id)
         if not correct:
-            continue  # try another question if data isn't found
+            continue
 
         country_list = get_random_country_list()
         if not country_list or len(country_list) < 2:

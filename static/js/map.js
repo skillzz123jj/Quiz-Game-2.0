@@ -38,6 +38,7 @@ export async function loadCountryGeoJSON(map) {
         el.className = 'country-dot';
         el.title = name;
 
+        //If game is loaded this adds the countries as collected
         if (completedCountries.includes(name)) {
         el.style.backgroundColor = 'green';
         el.classList.add('collected');

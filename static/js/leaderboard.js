@@ -1,5 +1,6 @@
 'use strict'
 
+//Fetches top 10 scores from database across all users
 document.addEventListener('DOMContentLoaded', () => {
     const leaderboardList = document.getElementById('leaderboard-list');
 

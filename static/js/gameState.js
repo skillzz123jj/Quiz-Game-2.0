@@ -1,7 +1,7 @@
 'use strict';
 
-document.addEventListener("DOMContentLoaded", () => {
-  if (typeof GAME_STATE !== "undefined") {
+document.addEventListener('DOMContentLoaded', () => {
+  if (typeof GAME_STATE !== 'undefined') {
     updateScoreUI(GAME_STATE.score);
     updateHeartsDisplay(GAME_STATE.lives);
   }
@@ -17,14 +17,14 @@ export function handleAnswer(isCorrect, clickedButton, country, timeRemanining) 
   const btn2 = document.getElementById('answer2');
   btn1.disabled = true;
   btn2.disabled = true;
-  btn1.classList.add("disabled");
-  btn2.classList.add("disabled");
+  btn1.classList.add('disabled');
+  btn2.classList.add('disabled');
 
   const selectedAnswer = document.getElementById(
-      `answer${clickedButton}`
+      `answer${clickedButton}`,
   );
   const otherAnswer = document.getElementById(
-      `answer${3 - clickedButton}`
+      `answer${3 - clickedButton}`,
   );
   otherAnswer.style.opacity = '30%';
   if (isCorrect) {
@@ -47,14 +47,15 @@ export function handleAnswer(isCorrect, clickedButton, country, timeRemanining) 
   }, {once: true});
 }
 
-function countScore(timeRemaining){
+function countScore(timeRemaining) {
   const maxTime = 30;
-const maxScore = 300;
-const minScore = 100;
-const score = Math.round(minScore + ((timeRemaining / maxTime) * (maxScore - minScore)));
-return score;
+  const maxScore = 300;
+  const minScore = 100;
+  const score = Math.round(minScore + ((timeRemaining / maxTime) * (maxScore - minScore)));
+  return score;
 }
 
+//When player answers incorrectly they lose one life
 async function checkLives() {
   const response = await fetch(`${SCRIPT_ROOT}/fetchLives`);
 
@@ -90,10 +91,10 @@ async function checkLives() {
 
 }
 
-
-
+//If player has lost all 3 lives and score is saved current savefile resets
 function endGame() {
-  const finalScoreText = document.getElementById('score-container').querySelector('p').textContent;
+  const finalScoreText = document.getElementById('score-container').
+      querySelector('p').textContent;
   const finalScore = parseInt(finalScoreText) || 0;
 
   fetch(`${SCRIPT_ROOT}/endGame`, {
@@ -101,20 +102,17 @@ function endGame() {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ score: finalScore }),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      console.log('Game end response:', data);
-    })
-    .catch((err) => console.error('Failed to end game:', err));
+    body: JSON.stringify({score: finalScore}),
+  }).then((res) => res.json()).then((data) => {
+    console.log('Game end response:', data);
+  }).catch((err) => console.error('Failed to end game:', err));
 
   document.getElementById('incorrect-answer-text').textContent = 'Game over';
   document.getElementById('close-btn').style.display = 'none';
   document.getElementById('gameOver-btn').style.display = 'block';
 }
 
-
+//
 async function updateLives(newLives) {
   const response = await fetch(`${SCRIPT_ROOT}/updateLives`, {
     method: 'POST',
@@ -133,6 +131,7 @@ async function updateLives(newLives) {
   console.log('Update response:', data);
 }
 
+// Updates the lives on the html game page
 function updateHeartsDisplay(lives) {
   const totalHearts = 3;
   console.log(lives);
@@ -159,7 +158,7 @@ function updateDatabase(addedScore, newCountry = null) {
 }
 
 function updateScoreUI(score) {
-  const scoreEl = document.getElementById("score-container").querySelector("p");
+  const scoreEl = document.getElementById('score-container').querySelector('p');
   scoreEl.textContent = `${score} points`;
 }
 

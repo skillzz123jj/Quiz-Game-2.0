@@ -23,12 +23,14 @@ export async function fetchCountryData(country) {
   const answers = [data.correct, data.incorrect].sort(
       () => Math.random() - 0.5);
 
-   box.innerHTML = `
+  // Creates a html element that contains the generated questions
+  box.innerHTML = `
     <h2 class="white-text" id="country-name">${data.correct.country}</h2>
     <p id="country-question">${data.correct.question}</p>
     <ul id="answer-list">
       ${answers.map((ans, i) => `
-        <li><button id="answer${i + 1}" class="answer-button" type="button">${ans.result}</button></li>
+        <li><button id="answer${i +
+  1}" class="answer-button" type="button">${ans.result}</button></li>
       `).join('')}
     </ul>
     <h3 id="correct-answer-text" class="orange-text" style="display:none;">Correct answer!</h3>
@@ -38,17 +40,18 @@ export async function fetchCountryData(country) {
       Back to Main Menu
     </a>
   `;
-
+  // Timer to calculate the earned points from a question
   let timeLeft = 30;
-const countdown = setInterval(() => {
-  timeLeft--;
-  if (timeLeft <= 0) {
-    clearInterval(countdown);
-  }
-}, 1000);
+  const countdown = setInterval(() => {
+    timeLeft--;
+    if (timeLeft <= 0) {
+      clearInterval(countdown);
+    }
+  }, 1000);
 
-  document.getElementById('center-box').style.display = 'block';
+  document.getElementById('center-box').style.display = 'block'; //Displays the question box
 
+  // Checks which answer was chosen
   answers.forEach((ans, i) => {
     document.getElementById(`answer${i + 1}`).addEventListener('click', () => {
       handleAnswer(ans.correct, i + 1, data.correct.country, timeLeft);

@@ -9,6 +9,8 @@ window.addEventListener('keyup', handleKeyUp);
 const canvas = document.getElementById('gamecanvas');
 const ctx = canvas.getContext('2d');
 
+let foundCollidingDot = null;
+
 //Initializes the plane canvases
 const playerHorizontal = new Image();
 const playerVerticalUp = new Image();
@@ -19,7 +21,6 @@ playerHorizontal.src = `${SCRIPT_ROOT}/static/img/red-airplane-left.png`;
 playerVerticalUp.src = `${SCRIPT_ROOT}/static/img/red-airplane-up.png`;
 
 playerVerticalDown.src = `${SCRIPT_ROOT}/static/img/red-airplane-down.png`;
-
 
 const spriteWidth = 54;
 const spriteHeight = 54;
@@ -90,8 +91,6 @@ function isPlayerCollidingWithDot(
   return distance < collisionThreshold;
 }
 
-let foundCollidingDot = null;
-
 //Updates the game every frame so that sprites are updated and collisions checked
 function updateGame() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -108,6 +107,7 @@ function updateGame() {
     }
   }
 
+  //Highlights the dot if player is on it
   for (const dot of allDots) {
     if (dot === foundCollidingDot) {
       dot.classList.add('highlighted');
